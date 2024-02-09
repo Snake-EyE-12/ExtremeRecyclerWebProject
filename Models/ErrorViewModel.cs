@@ -1,4 +1,4 @@
-namespace ExtremeRecyclerWebProject.Models
+namespace ExtremeRecycler.Models
 {
 	public class ErrorViewModel
 	{

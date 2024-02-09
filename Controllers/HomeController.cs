@@ -1,8 +1,8 @@
-﻿using ExtremeRecyclerWebProject.Models;
+﻿using ExtremeRecycler.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace ExtremeRecyclerWebProject.Controllers
+namespace ExtremeRecycler.Controllers
 {
 	public class HomeController : Controller
 	{

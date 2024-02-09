@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtremeRecyclerWebProject", "ExtremeRecyclerWebProject.csproj", "{8E664E9E-C9E2-4E56-A77A-40AC9C15A67B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtremeRecycler", "ExtremeRecycler.csproj", "{9BE61934-A77A-48F5-B323-68B7107C0D27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8E664E9E-C9E2-4E56-A77A-40AC9C15A67B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E664E9E-C9E2-4E56-A77A-40AC9C15A67B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E664E9E-C9E2-4E56-A77A-40AC9C15A67B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E664E9E-C9E2-4E56-A77A-40AC9C15A67B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BE61934-A77A-48F5-B323-68B7107C0D27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BE61934-A77A-48F5-B323-68B7107C0D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BE61934-A77A-48F5-B323-68B7107C0D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BE61934-A77A-48F5-B323-68B7107C0D27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {E5EFD557-4C0E-4111-A8F0-FED46A6DC2D8}
+		SolutionGuid = {5F1CD67A-7E48-452D-AB92-40CC69AD24BC}
 	EndGlobalSection
 EndGlobal
