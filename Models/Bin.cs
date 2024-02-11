@@ -6,7 +6,7 @@
 		public int currentCapacity = 0;
 
 		// item contributes to totalValue when recycled
-		public int totalValue = 0;
+		public float totalValue = 0;
 		
 
 		public void EmptyBin()
