@@ -6,7 +6,7 @@
 		public string name = "Unnamed";
 		public bool recyclable = false;
 		public int capacity = 1;
-		public int value = 5;
+		public float value = 5.00f;
 		public string image = ""; // image file location
 
 		public virtual void OnLeftClick()
