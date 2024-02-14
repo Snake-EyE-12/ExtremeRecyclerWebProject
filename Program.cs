@@ -1,3 +1,4 @@
+using ExtremeRecycler.Controllers;
 using ExtremeRecycler.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,8 @@ namespace ExtremeRecycler
 	{
 		public static void Main(string[] args)
 		{
+			TimerController timerController = new TimerController();
+
 			var builder = WebApplication.CreateBuilder(args);
 
 			// Add services to the container.
