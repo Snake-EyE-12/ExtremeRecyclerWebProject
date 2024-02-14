@@ -1,13 +1,15 @@
-﻿namespace ExtremeRecycler.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ExtremeRecycler.Models
 {
 	public class Item
 	{
-		public int id;
-		public string name = "Unnamed";
-		public bool recyclable = false;
-		public int capacity = 1;
-		public float value = 5.00f;
-		public string image = ""; // image file location
+		[Key] public int id { get; set; }
+		[Required] public string name { get; set; } = "Unnamed";
+		[Required] public bool recyclable { get; set; } = false;
+		[Required] public int capacity { get; set; } = 1;
+		[Required] public float value { get; set; } = 5.00f;
+		[Required] public string image { get; set; } = ""; // image file location
 
 		public virtual void OnLeftClick()
 		{
@@ -19,12 +21,12 @@
 			Trash();
 		}
 
-		private void Recycle()
+		protected void Recycle()
 		{
 
 		}
 
-		private void Trash()
+		protected void Trash()
 		{
 
 		}
