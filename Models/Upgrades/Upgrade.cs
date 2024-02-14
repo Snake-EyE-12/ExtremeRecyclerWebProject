@@ -4,12 +4,14 @@ namespace ExtremeRecycler.Models.Upgrades
 {
     public abstract class Upgrade
     {
+        public Upgrade() { }
+        public Upgrade(int _id, string _name, string _image, float _cost, float _scalar) { }
         [Key] public int ID { get; set; }
         [Required] public string? UpgradeName { get; set; }
         [Required] public string? BackgroundImage { get; set; }
 		[Required] public float BaseCost { get; set; }
 		[Required] public float CostScalar { get; set; }
-		[Required] public int CurrentLevel { get; set; }
+        [Required] public int CurrentLevel { get; set; } = 0;
 
 
         public bool AttemptPurchase(ref float networth)
@@ -30,9 +32,9 @@ namespace ExtremeRecycler.Models.Upgrades
         {
             return (BaseCost * MathF.Pow(CostScalar, CurrentLevel));
         }
-        protected virtual void Execute()
+        public virtual float Execute()
         {
-            
+            return 0.0f;
         }
     }
 }
