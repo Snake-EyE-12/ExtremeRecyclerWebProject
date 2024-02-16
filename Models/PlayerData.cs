@@ -10,12 +10,7 @@ namespace ExtremeRecycler.Models
 			this.Dollars = dollars;
 		}
 		public float Dollars { get; set; } = 0.00f;
-		private List<Upgrade> AcquiredUpgrades = new List<Upgrade>();
+		private List<Upgrade> Upgrades = new List<Upgrade>();
 		public Bin bin = new Bin();
-
-		public void AddUpgrade(Upgrade upgrade)
-		{
-			AcquiredUpgrades.Add(upgrade);
-		}
 	}
 }
