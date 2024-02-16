@@ -5,7 +5,7 @@ namespace ExtremeRecycler.Models.Upgrades
 	public class ValueUpgrade : Upgrade
 	{
 		public ValueUpgrade() { }
-		public ValueUpgrade(int _id, string _name, string _image, float _cost, float _costScalar, float _time, float _timeScalar) : base(_id, _name, _image, _cost, _scalar)
+		public ValueUpgrade(int _id, string _name, string _image, float _cost, float _costScalar, float _time, float _timeScalar)// : base(_id, _name, _image, _cost, _scalar)
 		{
 			BaseValue = _time;
 			ValueScalar = _timeScalar;
