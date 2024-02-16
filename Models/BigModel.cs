@@ -1,4 +1,6 @@
-﻿namespace ExtremeRecycler.Models
+﻿using ExtremeRecycler.Models.Upgrades;
+
+namespace ExtremeRecycler.Models
 {
     public class BigModel
     {
@@ -10,5 +12,6 @@
         }
         public PlayerData playerData { get; set; }
         public Item Item { get; set; }
+        public List<Upgrade> upgradeShop {  get; set; }
     }
 }

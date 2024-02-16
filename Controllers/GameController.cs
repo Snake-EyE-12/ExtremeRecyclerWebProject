@@ -9,17 +9,19 @@ namespace ExtremeRecycler.Controllers
     {
         PlayerDataList playerDataDAL = new PlayerDataList();
         UpgradeDataList upgradeDataDAL = new UpgradeDataList();
-        public IActionResult Trash(PlayerData pd, Item item)
+        public IActionResult Trash(BigModel model)
         {
+            model.Item.OnTrash();
             return View();
         }
 
-        public IActionResult Recycle(PlayerData pd, Item item)
+        public IActionResult Recycle(BigModel model)
         {
+            model.Item.OnRecycle();
             return View();
         }
 
-        public IActionResult BuyUpgrade(PlayerData pd)
+        public IActionResult BuyUpgrade(BigModel model)
         {
             return View();
         }

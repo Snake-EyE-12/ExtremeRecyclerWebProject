@@ -20,17 +20,17 @@ namespace ExtremeRecycler.Models
 		[Required] public float value { get; set; } = 5.00f;
 		[Required] public string image { get; set; } = ""; // image file location
 
-		public virtual void OnLeftClick()
+		public virtual void OnRecycle()
 		{
 			Recycle();
 		}
 
-		public virtual void OnRightClick()
+		public virtual void OnTrash()
 		{
 			Trash();
 		}
 
-		public void Recycle()
+		protected void Recycle()
 		{
 			OnRecycle(new RecycleEventArgs(value, capacity));
 		}
