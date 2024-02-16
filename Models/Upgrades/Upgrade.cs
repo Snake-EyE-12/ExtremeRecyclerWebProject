@@ -5,7 +5,7 @@ namespace ExtremeRecycler.Models.Upgrades
     public abstract class Upgrade
     {
         public Upgrade() { }
-        public Upgrade(int _id, string _name, string _image, float _cost, float _scalar) { }
+        public Upgrade(string _name, string _image, float _cost, float _scalar) { }
         [Key] public int ID { get; set; }
         [Required] public string? UpgradeName { get; set; }
         [Required] public string? BackgroundImage { get; set; }

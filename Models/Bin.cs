@@ -14,5 +14,12 @@
 			currentCapacity = 0;
 			totalValue = 0;
 		}
+
+		// item.RecycleEvent += bin.CollectItem;
+		public void CollectItem(object sender, RecycleEventArgs e)
+		{
+			currentCapacity += e.capacity;
+			totalValue += e.value;
+		}
 	}
 }
