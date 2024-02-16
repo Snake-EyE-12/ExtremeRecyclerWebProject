@@ -26,8 +26,10 @@ namespace ExtremeRecycler.Controllers
             return View();
         }
 
-        public IActionResult Sell(PlayerData pd)
+        public IActionResult Sell(BigModel model)
         {
+            model.playerData.Dollars += model.playerData.bin.totalValue;
+            model.playerData.bin.EmptyBin();
             return View();
         }
 
