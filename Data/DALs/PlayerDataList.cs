@@ -14,12 +14,14 @@ namespace ExtremeRecycler.Data.DALs
 
 		public bool Add(PlayerData item)
         {
-            throw new NotImplementedException();
+            db.Add(item);
+            db.SaveChanges();
+            return true;
         }
 
         public PlayerData Get(int id)
         {
-            throw new NotImplementedException();
+            return db.PlayerData.FirstOrDefault(x => x.ID == id);
         }
 
         public List<PlayerData> GetAll()
@@ -29,12 +31,16 @@ namespace ExtremeRecycler.Data.DALs
 
         public bool Remove(int id)
         {
-            throw new NotImplementedException();
-        }
+			PlayerData data = db.PlayerData.FirstOrDefault(x => x.ID == id);
+            db.Remove(data);
+			db.SaveChanges();
+			return true;
+		}
 
         public void Update(PlayerData item)
         {
-            throw new NotImplementedException();
+            db.Update(item);
+            db.SaveChanges();
         }
     }
 }

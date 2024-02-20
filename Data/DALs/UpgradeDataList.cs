@@ -1,40 +1,47 @@
 ﻿using ExtremeRecycler.Interfaces;
+using ExtremeRecycler.Models;
 using ExtremeRecycler.Models.Upgrades;
 using System;
 
 namespace ExtremeRecycler.Data.DALs
 {
-	public class UpgradeDataList : DataAccessLayer<Upgrade>
+	public class UpgradeDataList : DataAccessLayer<ValueUpgrade>
 	{
-		//private AppDbContext db;
-		//public UpgradeDataList(AppDbContext indb)
-		//{
-		//	db = indb;
-		//}
-
-		public bool Add(Upgrade item)
+		private ApplicationDbContext db;
+		public UpgradeDataList(ApplicationDbContext indb)
 		{
-			throw new NotImplementedException();
+			db = indb;
 		}
 
-		public Upgrade Get(int id)
+		public bool Add(ValueUpgrade item)
 		{
-			throw new NotImplementedException();
+			db.Add(item);
+			db.SaveChanges();
+			return true;
 		}
 
-		public List<Upgrade> GetAll()
+		public ValueUpgrade Get(int id)
 		{
-			throw new NotImplementedException();
+			return db.Upgrades.FirstOrDefault(x => x.ID == id);
+		}
+
+		public List<ValueUpgrade> GetAll()
+		{
+			return db.Upgrades.ToList();
 		}
 
 		public bool Remove(int id)
 		{
-			throw new NotImplementedException();
+			ValueUpgrade data = db.Upgrades.FirstOrDefault(x => x.ID == id);
+			db.Remove(data);
+			db.SaveChanges();
+			return true;
 		}
 
-		public void Update(Upgrade item)
+		public void Update(ValueUpgrade item)
 		{
-			throw new NotImplementedException();
+			db.Update(item);
+			db.SaveChanges();
 		}
 	}
 }

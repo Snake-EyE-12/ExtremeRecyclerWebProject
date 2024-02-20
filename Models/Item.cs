@@ -13,7 +13,7 @@ namespace ExtremeRecycler.Models
 		{
 			this.image = Image;
 		}
-		[Key] public int id { get; set; }
+		[Key] public int ID { get; set; }
 		[Required] public string name { get; set; } = "Unnamed";
 		[Required] public bool recyclable { get; set; } = false;
 		[Required] public int capacity { get; set; } = 1;

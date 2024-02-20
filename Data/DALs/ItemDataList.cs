@@ -22,7 +22,7 @@ namespace ExtremeRecycler.Data.DALs
 
 		public Item Get(int id)
 		{
-			throw new NotImplementedException();
+			return db.Items.FirstOrDefault(x => x.ID == id);
 		}
 
 		public List<Item> GetAll()
@@ -32,12 +32,16 @@ namespace ExtremeRecycler.Data.DALs
 
 		public bool Remove(int id)
 		{
-			throw new NotImplementedException();
+			Item data = db.Items.FirstOrDefault(x => x.ID == id);
+			db.Remove(data);
+			db.SaveChanges();
+			return true;
 		}
 
 		public void Update(Item item)
 		{
-			throw new NotImplementedException();
+			db.Update(item);
+			db.SaveChanges();
 		}
 	}
 }
