@@ -1,8 +1,41 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model BigModel
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h2>$@Model.playerData.Dollars</h2>
 </div>
+
+
+<div class="row">
+
+<div class="col-2"> 
+    <h2>Upgrades</h2>
+    <h3>som</h3>
+    <h3>som</h3>
+    <h3>som</h3>
+</div>
+
+<div class="col-2">
+    <a asp-controller="Home" asp-action="Index" >
+    <img class="submit" src="@Model.Item.image"/>
+    </a>
+</div>
+
+<div class="col-2">
+    <h2>
+        Leaderboard
+    </h2>
+
+</div>
+</div>
+
+
+
+<div class="text-center align-text-bottom">
+    <img src="https://catalog.carlislefsp.com/images/1600x1600/270893.jpg" width="400" />
+</div>
+@* <div class="text-center">
+    <partial name="_playerDataPartialView.cshtml">
+</div>
+<div class="align-content-center">
+    <partial name="_itemDataPartialView.cshtml">
+</div> *@

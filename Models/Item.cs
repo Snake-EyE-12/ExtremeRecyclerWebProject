@@ -8,6 +8,11 @@ namespace ExtremeRecycler.Models
 
 		public event RecycleEventHandler RecycleEvent;
 
+		public Item() { }
+		public Item(string Image)
+		{
+			this.image = Image;
+		}
 		[Key] public int id { get; set; }
 		[Required] public string name { get; set; } = "Unnamed";
 		[Required] public bool recyclable { get; set; } = false;
