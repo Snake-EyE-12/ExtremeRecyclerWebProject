@@ -6,12 +6,13 @@ namespace ExtremeRecycler.Data.DALs
 {
     public class PlayerDataList : DataAccessLayer<PlayerData>
     {
-        //private AppDbContext db;
-        //public UpgradeDataList(AppDbContext indb)
-        //{
-        //	db = indb;
-        //}
-        public bool Add(PlayerData item)
+		private ApplicationDbContext db;
+		public PlayerDataList(ApplicationDbContext indb)
+		{
+			db = indb;
+		}
+
+		public bool Add(PlayerData item)
         {
             throw new NotImplementedException();
         }
@@ -23,8 +24,7 @@ namespace ExtremeRecycler.Data.DALs
 
         public List<PlayerData> GetAll()
         {
-            throw new NotImplementedException();
-            //return db.PlayerDatas;
+            return db.PlayerData.ToList();
         }
 
         public bool Remove(int id)

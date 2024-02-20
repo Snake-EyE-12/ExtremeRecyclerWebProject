@@ -13,7 +13,7 @@ namespace ExtremeRecycler.Data
 		}
 
 		public DbSet<Item> Items { get; set; }
-
 		public DbSet<ValueUpgrade> Upgrades { get; set; }
+		public DbSet<PlayerData> PlayerData { get; set; }
 	}
 }

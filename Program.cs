@@ -4,6 +4,7 @@ using ExtremeRecycler.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ExtremeRecycler.Models;
+using ExtremeRecycler.Models.Upgrades;
 using ExtremeRecycler.Data.DALs;
 
 namespace ExtremeRecycler
@@ -27,6 +28,8 @@ namespace ExtremeRecycler
 			builder.Services.AddControllersWithViews();
 
 			builder.Services.AddTransient<DataAccessLayer<Item>, ItemDataList>();
+			builder.Services.AddTransient<DataAccessLayer<Upgrade>, UpgradeDataList>();
+			builder.Services.AddTransient<DataAccessLayer<PlayerData>, PlayerDataList>();
 
 			var app = builder.Build();
 

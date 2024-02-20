@@ -52,6 +52,26 @@ namespace ExtremeRecycler.Data.Migrations
                     b.ToTable("Items");
                 });
 
+            modelBuilder.Entity("ExtremeRecycler.Models.PlayerData", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<float>("Dollars")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("PlayerData");
+                });
+
             modelBuilder.Entity("ExtremeRecycler.Models.Upgrades.ValueUpgrade", b =>
                 {
                     b.Property<int>("ID")

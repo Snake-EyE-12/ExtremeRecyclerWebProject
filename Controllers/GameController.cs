@@ -1,5 +1,7 @@
 ﻿using ExtremeRecycler.Data.DALs;
+using ExtremeRecycler.Interfaces;
 using ExtremeRecycler.Models;
+using ExtremeRecycler.Models.Upgrades;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,9 +9,16 @@ namespace ExtremeRecycler.Controllers
 {
     public class GameController : Controller
     {
-        PlayerDataList playerDataDAL = new PlayerDataList();
-        UpgradeDataList upgradeDataDAL = new UpgradeDataList();
-        public IActionResult Trash(BigModel model)
+		DataAccessLayer<Item> ItemDal;
+		DataAccessLayer<Upgrade> UpgradeDal;
+		DataAccessLayer<PlayerData> PlayerDal;
+		public GameController(DataAccessLayer<Item> indalItem, DataAccessLayer<Upgrade> indalUpgrade, DataAccessLayer<PlayerData> indalPlayer)
+		{
+			ItemDal = indalItem;
+			UpgradeDal = indalUpgrade;
+			PlayerDal = indalPlayer;
+		}
+		public IActionResult Trash(BigModel model)
         {
             model.Item.OnTrash();
             return View();
@@ -35,8 +44,8 @@ namespace ExtremeRecycler.Controllers
 
         public IActionResult Leaderboard()
         {
-            return View(playerDataDAL.GetAll());
-            return View();
+            return View(PlayerDal.GetAll());
+            //return View();
         }
     }
 }
