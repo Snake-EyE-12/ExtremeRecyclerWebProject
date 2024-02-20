@@ -1,0 +1,15 @@
+﻿@using ExtremeRecycler.Models.Upgrades;
+@model IEnumerable<ValueUpgrade>
+
+<div class="text-center">
+	Upgrades:
+	
+	@foreach(ValueUpgrade data in Model)
+	{
+		<div>
+
+ 		<partial name="partialUpgradePage.cshtml" for="@data" />
+ 		</div>
+	}
+	
+</div>

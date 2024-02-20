@@ -1,0 +1,19 @@
+﻿@using ExtremeRecycler.Models.Upgrades;
+@model ValueUpgrade
+
+<div class="btn btn-outline-primary">
+	<div>
+		@Model.UpgradeName
+	</div>
+	<div>
+		Current Efficiency: @Model.Execute()
+	</div>
+	<div>
+		Cost To Upgrade: @Model.GetCurrentCost();
+	</div>
+	<div>
+		<form>
+			<button asp-controller="Game" asp-action="BuyUpgrade">Purchase</button>
+		</form>
+	</div>
+</div>

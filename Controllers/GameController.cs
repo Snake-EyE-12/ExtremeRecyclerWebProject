@@ -10,9 +10,9 @@ namespace ExtremeRecycler.Controllers
     public class GameController : Controller
     {
 		DataAccessLayer<Item> ItemDal;
-		DataAccessLayer<Upgrade> UpgradeDal;
+		DataAccessLayer<ValueUpgrade> UpgradeDal;
 		DataAccessLayer<PlayerData> PlayerDal;
-		public GameController(DataAccessLayer<Item> indalItem, DataAccessLayer<Upgrade> indalUpgrade, DataAccessLayer<PlayerData> indalPlayer)
+		public GameController(DataAccessLayer<Item> indalItem, DataAccessLayer<ValueUpgrade> indalUpgrade, DataAccessLayer<PlayerData> indalPlayer)
 		{
 			ItemDal = indalItem;
 			UpgradeDal = indalUpgrade;
@@ -45,7 +45,11 @@ namespace ExtremeRecycler.Controllers
         public IActionResult Leaderboard()
         {
             return View(PlayerDal.GetAll());
-            //return View();
         }
-    }
+		public IActionResult TempUpgradePage()
+		{
+            return View(UpgradeDal.GetAll());
+            //return View();
+		}
+	}
 }
