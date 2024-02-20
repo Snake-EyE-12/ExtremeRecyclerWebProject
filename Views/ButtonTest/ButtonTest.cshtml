@@ -1,0 +1,68 @@
+﻿@model List<ExtremeRecycler.Models.ButtonModel>;
+
+@{
+	Layout = null;
+}
+
+<a href="~/lib/jquery/dist/jquery.min.map">~/lib/jquery/dist/jquery.min.map</a>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$(document).contextmenu(function () {
+			return false;
+		});
+
+		$('.game-button').mousedown(function (event) {
+			if (event.which == 3)
+			{
+				console.log("event 3. right click");
+				console.log(this.getAttribute("value"));
+
+				//send click to event in button controller
+
+
+				//URL, Data and a callback
+				$.post("@Url.Action("OnRightButtonClick", "ButtonTest")", { toggle: this.getAttribute("value") }, function (data) {
+					//get some data back from the method
+					console.log(data);
+					//refresh the entire page
+					$("body").html(data);
+				});
+			}
+		});
+	});
+</script>
+
+<body>
+	<div>
+		<h1>Welcome to the buttons page</h1>
+		@Html.Label("Button test (like minesweeper)")
+		@using (Html.BeginForm("OnButtonClick", "ButtonTest"))
+		{
+			for (int i = 0; i < Model.Count; i++)
+			{
+				if (i % 5 == 0)
+				{
+					<br />
+				}
+				<button class="game-button" type="submit" name="toggle" value=@i>
+					@if (Model[i].Flagged == true)
+					{
+						<img src="~/Images/buttonTest/button_flag.png" />
+					}
+
+					else if (Model[i].State == true)
+					{
+						<img src="~/Images/buttonTest/button_on.png" />
+					}
+					else
+					{
+						<img src="~/Images/buttonTest/button_off.png" />
+					}
+				</button>
+			}
+		}
+	</div>
+</body>
