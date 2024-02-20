@@ -31,7 +31,7 @@ namespace ExtremeRecycler.Controllers
 
         public IActionResult Leaderboard()
         {
-            //return View(playerDataDAL.GetAll());
+            return View(playerDataDAL.GetAll());
             return View();
         }
     }
