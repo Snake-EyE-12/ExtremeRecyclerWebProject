@@ -1,0 +1,8 @@
+﻿@model IEnumerable<PlayerData>
+
+<div class="text-center">
+	@foreach(PlayerData data in Model)
+	{
+		<partial name="_MoviePartialView.cshtml" for="@data" />
+	}
+</div>
