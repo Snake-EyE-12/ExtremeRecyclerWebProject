@@ -1,7 +1,10 @@
 using ExtremeRecycler.Controllers;
 using ExtremeRecycler.Data;
+using ExtremeRecycler.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ExtremeRecycler.Models;
+using ExtremeRecycler.Data.DALs;
 
 namespace ExtremeRecycler
 {
@@ -22,6 +25,8 @@ namespace ExtremeRecycler
 			builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 			builder.Services.AddControllersWithViews();
+
+			builder.Services.AddTransient<DataAccessLayer<Item>, ItemDataList>();
 
 			var app = builder.Build();
 

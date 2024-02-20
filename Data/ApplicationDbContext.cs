@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using ExtremeRecycler.Models;
+using ExtremeRecycler.Models.Upgrades;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExtremeRecycler.Data
@@ -9,5 +11,9 @@ namespace ExtremeRecycler.Data
 			: base(options)
 		{
 		}
+
+		public DbSet<Item> Items { get; set; }
+
+		public DbSet<ValueUpgrade> Upgrades { get; set; }
 	}
 }

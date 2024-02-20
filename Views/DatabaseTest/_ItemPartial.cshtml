@@ -1,0 +1,19 @@
+﻿@model Item
+
+<div class="border p-3 mt-3">
+	@if (Model == null)
+	{
+		<h2>No Item provided</h2>
+	}
+	else
+	{
+		<div class="text-md-center">
+@* 			<img src="@Model.image" class="img-responsive" width="100%" height="300" /> *@
+			<h3>Image should go here</h3>
+			<h3>@Model.name</h3>
+			<h4>Recyclable: @Model.recyclable</h4>
+			<h4>Size: @Model.capacity</h4>
+			<h4>Value: @Model.value</h4>
+		</div>
+	}
+</div>

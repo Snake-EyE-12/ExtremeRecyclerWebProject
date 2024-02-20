@@ -1,0 +1,38 @@
+﻿@model Item
+
+<form asp-action="Add" asp-controller="DatabaseTest" method="post">
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary">Add Item</h2>
+			<hr />
+			<br />
+			<div asp-validation-summary="All" class="text-danger"></div>
+		</div>
+		<div class="mb-3">
+			<label asp-for="name"></label>
+			<input asp-for="name" class="form-control" />
+			<span asp-validation-for="name" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="recyclable"></label>
+			<input asp-for="recyclable" class="form-control" />
+			<span asp-validation-for="recyclable" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="capacity"></label>
+			<input asp-for="capacity" class="form-control" />
+			<span asp-validation-for="capacity" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="value"></label>
+			<input asp-for="value" class="form-control" />
+			<span asp-validation-for="value" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="image"></label>
+			<input asp-for="image" class="form-control" />
+			<span asp-validation-for="image" class="text-danger"></span>
+		</div>
+		<button type="submit" class="btn btn-primary">Add</button>
+	</div>
+</form>
