@@ -4,6 +4,7 @@ using ExtremeRecycler.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExtremeRecycler.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240220000939_Made upgrade data and item data DBContexts")]
+    partial class MadeupgradedataanditemdataDBContexts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,42 +52,6 @@ namespace ExtremeRecycler.Data.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("ExtremeRecycler.Models.Upgrades.ValueUpgrade", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("BackgroundImage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("BaseCost")
-                        .HasColumnType("real");
-
-                    b.Property<float>("BaseValue")
-                        .HasColumnType("real");
-
-                    b.Property<float>("CostScalar")
-                        .HasColumnType("real");
-
-                    b.Property<int>("CurrentLevel")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UpgradeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("ValueScalar")
-                        .HasColumnType("real");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Upgrades");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
