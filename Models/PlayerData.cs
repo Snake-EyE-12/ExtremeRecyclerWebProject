@@ -15,7 +15,7 @@ namespace ExtremeRecycler.Models
 
 		public void AddUpgrade(Upgrade upgrade)
 		{
-			AcquiredUpgrades.Add(upgrade);
+			Upgrades.Add(upgrade);
 		}
 		public string Username { get; set; }
 
