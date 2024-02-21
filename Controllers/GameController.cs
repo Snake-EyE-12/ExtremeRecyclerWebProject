@@ -13,11 +13,13 @@ namespace ExtremeRecycler.Controllers
 		DataAccessLayer<Item> ItemDal;
 		DataAccessLayer<ValueUpgrade> UpgradeDal;
 		DataAccessLayer<PlayerData> PlayerDal;
-		public GameController(DataAccessLayer<Item> indalItem, DataAccessLayer<ValueUpgrade> indalUpgrade, DataAccessLayer<PlayerData> indalPlayer)
+        DataAccessLayer<PlayerUpgrade> PlayerUpgradeDal;
+		public GameController(DataAccessLayer<Item> indalItem, DataAccessLayer<ValueUpgrade> indalUpgrade, DataAccessLayer<PlayerData> indalPlayer, DataAccessLayer<PlayerUpgrade> indalPlayerUpgrade)
 		{
 			ItemDal = indalItem;
 			UpgradeDal = indalUpgrade;
 			PlayerDal = indalPlayer;
+            PlayerUpgradeDal = indalPlayerUpgrade;
 		}
         private BigModel GetNewPageData()
         {
