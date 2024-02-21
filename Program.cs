@@ -49,6 +49,7 @@ namespace ExtremeRecycler
 			builder.Services.AddTransient<DataAccessLayer<Item>, ItemDataList>();
 			builder.Services.AddTransient<DataAccessLayer<ValueUpgrade>, UpgradeDataList>();
 			builder.Services.AddTransient<DataAccessLayer<PlayerData>, PlayerDataList>();
+			builder.Services.AddTransient<DataAccessLayer<PlayerUpgrade>, PlayerUpgradeDataList>();
 
 			var app = builder.Build();
 

@@ -22,7 +22,7 @@ namespace ExtremeRecycler.Models
 
 		public virtual void OnRecycle(PlayerData data)
 		{
-			data.bin.CollectItem(this);
+			data.CollectItem(this);
 			//Recycle();
 		}
 

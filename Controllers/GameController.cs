@@ -23,7 +23,6 @@ namespace ExtremeRecycler.Controllers
 		}
         private BigModel GetNewPageData()
         {
-
             PlayerData currentPlayerData = GetMatchingPlayerData();
             Item item = GetRandomItem();
             return new BigModel(currentPlayerData, item);
@@ -50,7 +49,7 @@ namespace ExtremeRecycler.Controllers
             ValueUpgrade[] newUpgrades = new ValueUpgrade[UpgradeDal.GetAll().Count];
             UpgradeDal.GetAll().CopyTo(newUpgrades.ToArray());
 
-			PlayerData pd = new PlayerData(0, newUpgrades.ToList(), currentPlayer);
+			PlayerData pd = new PlayerData(0, currentPlayer);
             PlayerDal.Add(pd);
             return pd;
 		}
@@ -76,8 +75,8 @@ namespace ExtremeRecycler.Controllers
 
         public IActionResult Sell(BigModel model)
         {
-            model.playerData.Dollars += model.playerData.bin.totalValue;
-            model.playerData.bin.EmptyBin();
+            model.playerData.Dollars += model.playerData.binValue;
+            model.playerData.EmptyBin();
             return View();
         }
 
@@ -92,7 +91,6 @@ namespace ExtremeRecycler.Controllers
 		public IActionResult TempUpgradePage()
 		{
             return View(UpgradeDal.GetAll());
-            //return View();
 		}
 	}
 }
