@@ -16,10 +16,10 @@
 		}
 
 		// item.RecycleEvent += bin.CollectItem;
-		public void CollectItem(object sender, RecycleEventArgs e)
+		public void CollectItem(Item item)
 		{
-			currentCapacity += e.capacity;
-			totalValue += e.value;
+			currentCapacity += item.capacity;
+			totalValue += item.value;
 		}
 	}
 }

@@ -20,9 +20,10 @@ namespace ExtremeRecycler.Models
 		[Required] public float value { get; set; } = 5.00f;
 		[Required] public string image { get; set; } = ""; // image file location
 
-		public virtual void OnRecycle()
+		public virtual void OnRecycle(PlayerData data)
 		{
-			Recycle();
+			data.bin.CollectItem(this);
+			//Recycle();
 		}
 
 		public virtual void OnTrash()

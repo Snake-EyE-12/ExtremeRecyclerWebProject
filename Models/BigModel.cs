@@ -12,6 +12,5 @@ namespace ExtremeRecycler.Models
         }
         public PlayerData playerData { get; set; }
         public Item Item { get; set; }
-        public List<Upgrade> upgradeShop {  get; set; }
     }
 }

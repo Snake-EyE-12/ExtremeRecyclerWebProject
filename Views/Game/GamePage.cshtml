@@ -1,0 +1,22 @@
+﻿@model BigModel
+
+<div>
+	Money: @Model.playerData.Dollars
+</div>
+<div>
+	Item: @Model.Item.image
+	<form>
+		<input name="item" hidden value="@Model.Item" />
+		<button type="submit" asp-action="Recycle" asp-controller="Game">Recycle</button>
+		<button type="submit" asp-action="Trash" asp-controller="Game">Trash</button>
+	</form>
+</div>
+<div>
+	Bin: @Model.playerData.bin.currentCapacity / @Model.playerData.bin.maxCapacity
+</div>
+<div>
+	Truck:
+</div>
+<div>
+	Upgrades:
+</div>

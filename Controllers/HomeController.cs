@@ -13,7 +13,7 @@ namespace ExtremeRecycler.Controllers
 			_logger = logger;
 		}
 
-		PlayerData pd = new PlayerData(5.32f);
+		PlayerData pd = new PlayerData(5.32f, null, null);
 		Item itm = new Item("https://th.bing.com/th/id/OIP.yoQQCDKIK7zg7jZEBJr_1QAAAA?w=176&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7");
 		
 		

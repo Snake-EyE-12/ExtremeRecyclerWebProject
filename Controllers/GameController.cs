@@ -4,6 +4,7 @@ using ExtremeRecycler.Models;
 using ExtremeRecycler.Models.Upgrades;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace ExtremeRecycler.Controllers
 {
@@ -18,16 +19,52 @@ namespace ExtremeRecycler.Controllers
 			UpgradeDal = indalUpgrade;
 			PlayerDal = indalPlayer;
 		}
+        private BigModel GetNewPageData()
+        {
+
+            PlayerData currentPlayerData = GetMatchingPlayerData();
+            Item item = GetRandomItem();
+            return new BigModel(currentPlayerData, item);
+        }
+        private Item GetRandomItem()
+        {
+            Random random = new Random();
+            //Upgrade Randomization
+            return ItemDal.GetAll()[random.Next() % ItemDal.GetAll().Count];
+        }
+        private PlayerData GetMatchingPlayerData()
+        {
+			string currentPlayer = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if(currentPlayer == null)
+            {
+                Console.WriteLine("Not Signed In");
+                //Return Error or Login Page
+            }
+			PlayerData data = PlayerDal.GetAll().FirstOrDefault(x => x.Username.Equals(currentPlayer));
+            if(data != default(PlayerData))
+            {
+                return data;
+            }
+            ValueUpgrade[] newUpgrades = new ValueUpgrade[UpgradeDal.GetAll().Count];
+            UpgradeDal.GetAll().CopyTo(newUpgrades.ToArray());
+
+			PlayerData pd = new PlayerData(0, newUpgrades.ToList(), currentPlayer);
+            PlayerDal.Add(pd);
+            return pd;
+		}
 		public IActionResult Trash(BigModel model)
         {
-            model.Item.OnTrash();
+			return RedirectToAction("GamePage", "Game", GetNewPageData());
+			model.Item.OnTrash();
             return View();
         }
 
-        public IActionResult Recycle(BigModel model)
+        public IActionResult Recycle(Item item)
         {
-            model.Item.OnRecycle();
-            return View();
+            PlayerData pd = GetMatchingPlayerData();
+            item.OnRecycle(pd);
+            PlayerDal.Update(pd);
+            return RedirectToAction("GamePage", "Game", GetNewPageData());
         }
 
         public IActionResult BuyUpgrade(BigModel model)
@@ -46,6 +83,10 @@ namespace ExtremeRecycler.Controllers
         {
             return View(PlayerDal.GetAll());
         }
+		public IActionResult GamePage()
+		{
+			return View(GetNewPageData());
+		}
 		public IActionResult TempUpgradePage()
 		{
             return View(UpgradeDal.GetAll());
