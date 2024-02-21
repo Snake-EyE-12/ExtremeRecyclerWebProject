@@ -18,15 +18,20 @@ namespace ExtremeRecycler.Controllers
 			UpgradeDal = indalUpgrade;
 			PlayerDal = indalPlayer;
 		}
-		public IActionResult Trash(BigModel model)
+		public IActionResult Trash(Item item)
         {
-            model.Item.OnTrash();
+            item.OnTrash();
             return View();
         }
 
-        public IActionResult Recycle(BigModel model)
+		public IActionResult Recycle()
+		{
+			return View("Index");
+		}
+
+		public IActionResult Recycle(Item item)
         {
-            model.Item.OnRecycle();
+            item.OnRecycle();
             return View();
         }
 
