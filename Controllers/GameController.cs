@@ -127,8 +127,8 @@ namespace ExtremeRecycler.Controllers
 			// ===================================================================================Upgrade Check - Truck Delay
 			//if true (timer has past) then start another here
 			PlayerData playerData = PlayerDal.Get(id);
-			// ===================================================================================Upgrade Check - Bonus Sell Value
-			playerData.Dollars += playerData.binValue;
+			// ===================================================================================Upgrade Check - Bonus Sell Value - DONE
+			playerData.Dollars += playerData.binValue * GetUpgradeValue("SellMultiplier", playerData); ;
             playerData.EmptyBin();
             PlayerDal.Update(playerData);
 			return RedirectToAction("GamePage", "Game", GetNewPageData());
