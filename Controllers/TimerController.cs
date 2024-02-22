@@ -19,7 +19,7 @@ namespace ExtremeRecycler.Controllers
 
 		private void TimerElapsed(object sender, ElapsedEventArgs e)
 		{
-			Console.WriteLine("Timer Elapsed!!!!");
+			//Console.WriteLine("Timer Elapsed!!!!");
 			// This method will be called every time the timer elapses
 			// You can perform any action you want here
 			// For example, log something, send an email, etc.

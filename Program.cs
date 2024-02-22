@@ -27,9 +27,29 @@ namespace ExtremeRecycler
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 			builder.Services.AddControllersWithViews();
 
+			builder.Services.Configure<IdentityOptions>(options =>
+			{
+				options.Password.RequireDigit = false;
+				options.Password.RequireLowercase = false;
+				options.Password.RequireUppercase = false;
+				options.Password.RequiredLength = 8;
+				options.Password.RequiredUniqueChars = 0;
+
+				options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+				options.Lockout.MaxFailedAccessAttempts = 5;
+				options.Lockout.AllowedForNewUsers = false;
+
+				//options.User.AllowedUserNameCharacters = "abc";
+				options.User.RequireUniqueEmail = true;
+				options.SignIn.RequireConfirmedAccount = false;
+				options.SignIn.RequireConfirmedEmail = false;
+				options.SignIn.RequireConfirmedPhoneNumber = false;
+			});
+
 			builder.Services.AddTransient<DataAccessLayer<Item>, ItemDataList>();
 			builder.Services.AddTransient<DataAccessLayer<ValueUpgrade>, UpgradeDataList>();
 			builder.Services.AddTransient<DataAccessLayer<PlayerData>, PlayerDataList>();
+			builder.Services.AddTransient<DataAccessLayer<PlayerUpgrade>, PlayerUpgradeDataList>();
 
 			var app = builder.Build();
 
