@@ -43,8 +43,9 @@ namespace ExtremeRecycler.Controllers
         private Item GetRandomItem()
         {
             Random random = new Random();
-            //Upgrade Randomization
-            return ItemDal.GetAll()[random.Next() % ItemDal.GetAll().Count];
+			//Upgrade Randomization
+			// ===================================================================================Upgrade Check - Item Rarity
+			return ItemDal.GetAll()[random.Next() % ItemDal.GetAll().Count];
         }
         private PlayerData GetMatchingPlayerData()
         {
@@ -63,7 +64,8 @@ namespace ExtremeRecycler.Controllers
 
             PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 1, 0));
             PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 2, 0));
-            PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 3, 0));
+            PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 3, 0)); //FOR CHASE - THIS WAS THE PENALTY ONE
+            //ADD ALL UPGRADES WITH ASSOCIATED ID
 
 			PlayerData pd = new PlayerData(0, currentPlayer);
             PlayerDal.Add(pd);
@@ -72,6 +74,7 @@ namespace ExtremeRecycler.Controllers
 		public IActionResult Trash(int itemID)
         {
 			return RedirectToAction("GamePage", "Game", GetNewPageData());
+            // CURRENTLY DOES NOTHING BUT A PAGE REFRESH ???
         }
 
         public IActionResult Recycle(int itemID)
@@ -80,15 +83,16 @@ namespace ExtremeRecycler.Controllers
             Item item = ItemDal.Get(itemID);
             if(item.recyclable)
             {
+                // ===============================================================================Upgrade Check - Bin Capacity
                 item.OnRecycle(pd);
             }
-            else pd.Dollars -= GetUpgradeValue("PenaltyMinimizer", pd);
+            else pd.Dollars -= GetUpgradeValue("PenaltyMinimizer", pd); // CAN GO BELOW ZERO
 			PlayerDal.Update(pd);
             return RedirectToAction("GamePage", "Game", GetNewPageData());
         }
 
 
-        public IActionResult BuyUpgrade(string upgradeName)
+        public IActionResult BuyUpgrade(string upgradeName) //SHOULD WORK WITH ALL UPGRADES IF ADDED PROPERLY
         {
             PlayerData pd = GetMatchingPlayerData();
 			IEnumerable<ValueUpgrade> upgrades = GetPlayerUpgrades(pd.Username);
@@ -118,8 +122,12 @@ namespace ExtremeRecycler.Controllers
 
         public IActionResult Sell(int id)
         {
-            PlayerData playerData = PlayerDal.Get(id);
-            playerData.Dollars += playerData.binValue;
+			// need to check timer at this point
+			// ===================================================================================Upgrade Check - Truck Delay
+			//if true (timer has past) then start another here
+			PlayerData playerData = PlayerDal.Get(id);
+			// ===================================================================================Upgrade Check - Bonus Sell Value
+			playerData.Dollars += playerData.binValue;
             playerData.EmptyBin();
             PlayerDal.Update(playerData);
 			return RedirectToAction("GamePage", "Game", GetNewPageData());
@@ -127,13 +135,14 @@ namespace ExtremeRecycler.Controllers
 
         public IActionResult Leaderboard()
         {
+            // sort algorythm goes here
             return View(PlayerDal.GetAll());
         }
 		public IActionResult GamePage()
 		{
 			return View(GetNewPageData());
 		}
-		public IActionResult TempUpgradePage()
+		public IActionResult TempUpgradePage() //CAN BE REMOVED
 		{
             return View(UpgradeDal.GetAll());
 		}
@@ -147,7 +156,7 @@ namespace ExtremeRecycler.Controllers
                     return upgrade.Execute();
                 }
             }
-            //Problem
+            //If it gets here, there was a Problem
             return 0.0f;
         }
 	}
