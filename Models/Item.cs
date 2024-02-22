@@ -26,9 +26,9 @@ namespace ExtremeRecycler.Models
 			//Recycle();
 		}
 
-		public virtual void OnTrash()
+		public virtual void OnTrash(PlayerData data)
 		{
-			Trash();
+
 		}
 
 		protected void Recycle()

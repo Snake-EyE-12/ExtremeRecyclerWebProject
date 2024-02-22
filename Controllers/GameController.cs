@@ -25,7 +25,19 @@ namespace ExtremeRecycler.Controllers
         {
             PlayerData currentPlayerData = GetMatchingPlayerData();
             Item item = GetRandomItem();
-            return new BigModel(currentPlayerData, item);
+            IEnumerable<ValueUpgrade> playersUpgrades = GetPlayerUpgrades(currentPlayerData.Username);
+            return new BigModel(currentPlayerData, item, playersUpgrades);
+        }
+        private IEnumerable<ValueUpgrade> GetPlayerUpgrades(string associatedUser)
+        {
+			List<ValueUpgrade> result = new List<ValueUpgrade>();
+            IEnumerable<PlayerUpgrade> playersUpgrades = PlayerUpgradeDal.GetAll().Where(x => x.AssociatedUser.Equals(associatedUser));
+            foreach (var item in playersUpgrades)
+            {
+                ValueUpgrade respectiveUpgrade = UpgradeDal.Get(item.UpgradeID);
+                result.Add(new ValueUpgrade(respectiveUpgrade.UpgradeName, respectiveUpgrade.BackgroundImage, respectiveUpgrade.BaseCost, respectiveUpgrade.CostScalar, respectiveUpgrade.BaseValue, respectiveUpgrade.ValueScalar));
+            }
+            return result;
         }
         private Item GetRandomItem()
         {
@@ -46,39 +58,47 @@ namespace ExtremeRecycler.Controllers
             {
                 return data;
             }
-            ValueUpgrade[] newUpgrades = new ValueUpgrade[UpgradeDal.GetAll().Count];
-            UpgradeDal.GetAll().CopyTo(newUpgrades.ToArray());
+            //ValueUpgrade[] newUpgrades = new ValueUpgrade[UpgradeDal.GetAll().Count];
+            //UpgradeDal.GetAll().CopyTo(newUpgrades.ToArray());
+
+            PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 1, 0));
+            PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 2, 0));
 
 			PlayerData pd = new PlayerData(0, currentPlayer);
             PlayerDal.Add(pd);
             return pd;
 		}
-		public IActionResult Trash(BigModel model)
+		public IActionResult Trash(int itemID)
         {
 			return RedirectToAction("GamePage", "Game", GetNewPageData());
-			model.Item.OnTrash();
-            return View();
         }
 
-        public IActionResult Recycle(Item item)
+        public IActionResult Recycle(int itemID)
         {
             PlayerData pd = GetMatchingPlayerData();
-            item.OnRecycle(pd);
-            PlayerDal.Update(pd);
+            Item item = ItemDal.Get(itemID);
+            if(item.recyclable)
+            {
+                item.OnRecycle(pd);
+            }
+            //else pd.Dollars -= PENALTY AMOUNT
+			PlayerDal.Update(pd);
             return RedirectToAction("GamePage", "Game", GetNewPageData());
         }
 
-        public IActionResult BuyUpgrade(BigModel model)
+        public IActionResult BuyUpgrade(int id)
         {
             return View();
         }
 
-        public IActionResult Sell(BigModel model)
+        public IActionResult Sell(int id)
         {
-            model.playerData.Dollars += model.playerData.binValue;
-            model.playerData.EmptyBin();
-            return View();
-        }
+            PlayerData playerData = PlayerDal.Get(id);
+            playerData.Dollars += playerData.binValue;
+            playerData.EmptyBin();
+            PlayerDal.Update(playerData);
+			return RedirectToAction("GamePage", "Game", GetNewPageData());
+		}
 
         public IActionResult Leaderboard()
         {
