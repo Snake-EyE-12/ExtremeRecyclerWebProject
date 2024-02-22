@@ -20,6 +20,12 @@
 </div>
 <div>
 	Upgrades:
+	@foreach(var upgrade in Model.PlayerUpgrades)
+	{
+		<div>
+			<partial name="partialUpgradePage.cshtml" for="@upgrade" />
+		</div>
+	}
 </div>
 <form asp-action="Sell" asp-controller="Game">
 	<input name="id" type="hidden" value="@Model.playerData.ID" />
