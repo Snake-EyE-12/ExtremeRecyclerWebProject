@@ -55,7 +55,7 @@ namespace ExtremeRecycler.Controllers
 		}
 		public IActionResult Trash(BigModel model)
 		{
-			//return RedirectToAction("GamePage", "Game", GetNewPageData());
+			return RedirectToAction("GamePage", "Game", GetNewPageData());
 			model.Item.OnTrash();
 			return View();
 		}

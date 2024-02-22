@@ -33,23 +33,13 @@
 
 					var BigModel = $(this).serialize();
 
-<<<<<<< Updated upstream
 						//URL, Data and a callback
 					$.post("@Url.Action("Trash", "Game")", "BigModel", function (data) {
 							//get some data back from the method
 							console.log(data);
 							//refresh the entire page
 							$("body").html(data);
-						});
-=======
-					//URL, Data and a callback
-					$.post("@Url.Action("Trash", "GameController")", "@Model", function (data) {
-						//get some data back from the method
-						console.log(data);
-						//refresh the entire page
-						$("body").html(data);
 					});
->>>>>>> Stashed changes
 				}
 			});
 		});
@@ -60,7 +50,7 @@
 
 	<div class="col-2">
 
-		@using (Html.BeginForm("Recycle", "GameController"))
+		@using (Html.BeginForm("Recycle", "Game"))
 		{
 			<button class="game-button" type="submit" name="model" value=@Model>
 				<img src="@Model.Item.image" />
