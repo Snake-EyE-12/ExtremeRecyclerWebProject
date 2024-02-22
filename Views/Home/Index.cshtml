@@ -1,7 +1,6 @@
 ﻿@model BigModel
 
 
-<a href="~/lib/jquery/dist/jquery.min.map">~/lib/jquery/dist/jquery.min.map</a>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
@@ -32,10 +31,10 @@
 
 					//send click to event in button controller
 
-					var PlayerModel = @Model.Item
+					var BigModel = $(this).serialize();
 
 						//URL, Data and a callback
-						$.post("@Url.Action("Trash", "GameController")", "@Model", function (data) {
+					$.post("@Url.Action("Trash", "Game")", "BigModel", function (data) {
 							//get some data back from the method
 							console.log(data);
 							//refresh the entire page
@@ -53,11 +52,9 @@
 
 		@using (Html.BeginForm("Recycle", "GameController"))
 		{
-			//<a asp-controller="Home" asp-action="Index">
 			<button class="game-button" type="submit" name="model" value=@Model>
 				<img src="@Model.Item.image" />
 			</button>
-			//</a>
 
 		}
 	</div>

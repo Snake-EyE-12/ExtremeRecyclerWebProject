@@ -53,33 +53,20 @@ namespace ExtremeRecycler.Controllers
             PlayerDal.Add(pd);
             return pd;
 		}
-		public IActionResult Trash(Item item)
-        {
-            item.OnTrash();
-            return View();
-        }
-
-		public IActionResult Recycle()
+		public IActionResult Trash(BigModel model)
 		{
-			return View("Index");
+			//return RedirectToAction("GamePage", "Game", GetNewPageData());
+			model.Item.OnTrash();
+			return View();
 		}
 
 		public IActionResult Recycle(Item item)
-        {
-            item.OnRecycle();
-            return View();
+		{
+			PlayerData pd = GetMatchingPlayerData();
+			item.OnRecycle(pd);
+			PlayerDal.Update(pd);
 			return RedirectToAction("GamePage", "Game", GetNewPageData());
-			model.Item.OnTrash();
-            return View();
-        }
-
-        public IActionResult Recycle(Item item)
-        {
-            PlayerData pd = GetMatchingPlayerData();
-            item.OnRecycle(pd);
-            PlayerDal.Update(pd);
-            return RedirectToAction("GamePage", "Game", GetNewPageData());
-        }
+		}
 
         public IActionResult BuyUpgrade(BigModel model)
         {
