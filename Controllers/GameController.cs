@@ -35,7 +35,7 @@ namespace ExtremeRecycler.Controllers
             foreach (var item in playersUpgrades)
             {
                 ValueUpgrade respectiveUpgrade = UpgradeDal.Get(item.UpgradeID);
-                result.Add(new ValueUpgrade(respectiveUpgrade.UpgradeName, respectiveUpgrade.BackgroundImage, respectiveUpgrade.BaseCost, respectiveUpgrade.CostScalar, respectiveUpgrade.BaseValue, respectiveUpgrade.ValueScalar));
+                result.Add(new ValueUpgrade(respectiveUpgrade.UpgradeName, respectiveUpgrade.DisplayName, respectiveUpgrade.Description, respectiveUpgrade.BackgroundImage, respectiveUpgrade.BaseCost, respectiveUpgrade.CostScalar, respectiveUpgrade.BaseValue, respectiveUpgrade.ValueScalar));
             }
             return result;
         }
