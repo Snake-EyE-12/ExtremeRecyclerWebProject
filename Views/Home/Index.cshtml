@@ -33,6 +33,7 @@
 
 					var BigModel = $(this).serialize();
 
+<<<<<<< Updated upstream
 						//URL, Data and a callback
 					$.post("@Url.Action("Trash", "Game")", "BigModel", function (data) {
 							//get some data back from the method
@@ -40,6 +41,15 @@
 							//refresh the entire page
 							$("body").html(data);
 						});
+=======
+					//URL, Data and a callback
+					$.post("@Url.Action("Trash", "GameController")", "@Model", function (data) {
+						//get some data back from the method
+						console.log(data);
+						//refresh the entire page
+						$("body").html(data);
+					});
+>>>>>>> Stashed changes
 				}
 			});
 		});
