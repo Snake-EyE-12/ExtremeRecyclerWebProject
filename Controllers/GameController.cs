@@ -112,6 +112,7 @@ namespace ExtremeRecycler.Controllers
 			}
 			return RedirectToAction("GamePage", "Game", GetNewPageData());
 		}
+
         private void UpdatePlayerUpgrade(PlayerData pd, ValueUpgrade upgrade)
         {
             var pUpgrade = PlayerUpgradeDal.GetAll().Where(x => x.UpgradeID == upgrade.matchingID);
@@ -136,16 +137,21 @@ namespace ExtremeRecycler.Controllers
         public IActionResult Leaderboard()
         {
             // sort algorythm goes here
-            return View(PlayerDal.GetAll());
+            List<PlayerData> players = PlayerDal.GetAll();
+            var sortedList = players.OrderByDescending(obj => obj.Dollars).ToList();
+            return View(sortedList);
         }
+
 		public IActionResult GamePage()
 		{
 			return View(GetNewPageData());
 		}
+
 		public IActionResult TempUpgradePage() //CAN BE REMOVED
 		{
             return View(UpgradeDal.GetAll());
 		}
+
         private float GetUpgradeValue(string upgradeName, PlayerData player)
         {
             IEnumerable<ValueUpgrade> upgrades = GetPlayerUpgrades(player.Username);
