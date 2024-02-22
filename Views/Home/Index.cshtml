@@ -1,37 +1,78 @@
 ﻿@model BigModel
 
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
 <div class="text-center">
-    <h2>$@Model.playerData.Dollars</h2>
+	<h2>$@Model.playerData.Dollars</h2>
 </div>
 
 
 <div class="row">
 
-<div class="col-2"> 
-    <h2>Upgrades</h2>
-    <h3>som</h3>
-    <h3>som</h3>
-    <h3>som</h3>
-</div>
+	<div class="col-2">
+		<h2>Upgrades</h2>
+		<h3>som</h3>
+		<h3>som</h3>
+		<h3>som</h3>
+	</div>
 
-<div class="col-2">
-    <a asp-controller="Game" asp-action="Recycle" >
-    <img class="submit" src="@Model.Item.image"/>
-    </a>
-</div>
+	<script>
+		$(document).ready(function () {
+			$(document).contextmenu(function () {
+				return false;
+			});
 
-<div class="col-2">
-    <h2>
-        Leaderboard
-    </h2>
+			$('.game-button').mousedown(function (event) {
+				if (event.which == 3) {
+					console.log("event 3. right click");
+					console.log(this.getAttribute("value"));
 
-</div>
+					//send click to event in button controller
+
+					var BigModel = $(this).serialize();
+
+						//URL, Data and a callback
+					$.post("@Url.Action("Trash", "Game")", "BigModel", function (data) {
+							//get some data back from the method
+							console.log(data);
+							//refresh the entire page
+							$("body").html(data);
+					});
+				}
+			});
+		});
+	</script>
+
+
+
+
+	<div class="col-2">
+
+		@using (Html.BeginForm("Recycle", "Game"))
+		{
+			<button class="game-button" type="submit" name="model" value=@Model>
+				<img src="@Model.Item.image" />
+			</button>
+
+		}
+	</div>
+
+
+
+	<div class="col-2">
+		<h2>
+			Leaderboard
+		</h2>
+
+	</div>
 </div>
 
 
 
 <div class="text-center align-text-bottom">
-    <img src="https://catalog.carlislefsp.com/images/1600x1600/270893.jpg" width="400" />
+	<img src="https://catalog.carlislefsp.com/images/1600x1600/270893.jpg" width="400" />
 </div>
 @* <div class="text-center">
     <partial name="_playerDataPartialView.cshtml">

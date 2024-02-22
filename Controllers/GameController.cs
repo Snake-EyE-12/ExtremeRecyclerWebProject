@@ -86,6 +86,7 @@ namespace ExtremeRecycler.Controllers
             return RedirectToAction("GamePage", "Game", GetNewPageData());
         }
 
+
         public IActionResult BuyUpgrade(int id)
         {
             return View();

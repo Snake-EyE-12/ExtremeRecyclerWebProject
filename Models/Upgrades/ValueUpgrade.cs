@@ -17,7 +17,9 @@ namespace ExtremeRecycler.Models.Upgrades
 		}
 
 		[Key] public int ID { get; set; }
+		[Required] public string? DisplayName { get; set; }
 		[Required] public string? UpgradeName { get; set; }
+		[Required] public string? Description { get; set; }
 		[Required] public string? BackgroundImage { get; set; }
 		[Required] public float BaseCost { get; set; }
 		[Required] public float CostScalar { get; set; }

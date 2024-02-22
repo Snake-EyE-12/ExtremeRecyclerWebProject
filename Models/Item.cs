@@ -19,6 +19,7 @@ namespace ExtremeRecycler.Models
 		[Required] public int capacity { get; set; } = 1;
 		[Required] public float value { get; set; } = 5.00f;
 		[Required] public string image { get; set; } = ""; // image file location
+		[Required][Range(1,5)] public int rarity { get; set; } = 1;
 
 		public virtual void OnRecycle(PlayerData data)
 		{
