@@ -12,8 +12,9 @@
 		Cost To Upgrade: @Model.GetCurrentCost();
 	</div>
 	<div>
-		<form>
-			<button asp-controller="Game" asp-action="BuyUpgrade">Purchase</button>
+		<form asp-controller="Game" asp-action="BuyUpgrade">
+			<input name="upgradeName" type="hidden" value="@Model.UpgradeName" />
+			<button type="submit">Purchase</button>
 		</form>
 	</div>
 </div>

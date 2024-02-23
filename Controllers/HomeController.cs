@@ -19,7 +19,7 @@ namespace ExtremeRecycler.Controllers
 		
 		public IActionResult Index()
 		{
-			BigModel bm = new BigModel(pd, itm);
+			BigModel bm = new BigModel(pd, itm, null);
 
             return View(bm);
 		}

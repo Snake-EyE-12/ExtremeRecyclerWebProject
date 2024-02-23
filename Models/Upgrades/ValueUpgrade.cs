@@ -5,34 +5,41 @@ namespace ExtremeRecycler.Models.Upgrades
 	public class ValueUpgrade
 	{
 		public ValueUpgrade() { }
-		public ValueUpgrade(string _name, string _image, float _cost, float _costScalar, float _value, float _valueScalar)
+		public ValueUpgrade(int id, string _name, string displayName, string desc, string _image, float _cost, float _costScalar, float _value, float _valueScalar, int lvl)
 		{
 			UpgradeName = _name;
+			DisplayName = displayName;
+			Description = desc;
 			BackgroundImage = _image;
 			BaseCost = _cost;
 			CostScalar = _costScalar;
 
+			matchingID = id;
+
 			BaseValue = _value;
 			ValueScalar = _valueScalar;
+
+			CurrentLevel = lvl;
 		}
 
 		[Key] public int ID { get; set; }
+		public int matchingID;
 		[Required] public string? DisplayName { get; set; }
 		[Required] public string? UpgradeName { get; set; }
 		[Required] public string? Description { get; set; }
 		[Required] public string? BackgroundImage { get; set; }
 		[Required] public float BaseCost { get; set; }
 		[Required] public float CostScalar { get; set; }
-		[Required] public int CurrentLevel { get; set; } = 0;
+		[Required] public int CurrentLevel { get; set; }
 
 		[Required] public float BaseValue { get; set; }
 		[Required] public float ValueScalar { get; set; }
 
-		public bool AttemptPurchase(ref float networth)
+		public bool AttemptPurchase(PlayerData player)
 		{
-			if (CanPurchase(networth))
+			if (CanPurchase(player.Dollars))
 			{
-				networth -= GetCurrentCost();
+				player.Dollars -= GetCurrentCost();
 				CurrentLevel++;
 				return true;
 			}
