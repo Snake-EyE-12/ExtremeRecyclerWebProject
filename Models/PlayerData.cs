@@ -19,6 +19,8 @@ namespace ExtremeRecycler.Models
 		[Required] public float binCurrentCapacity { get; set; } = 0.0f;
 		[Required] public float binValue { get; set; } = 0.0f;
 
+		public float binBaseMaxCapacity = 100;
+
         public void EmptyBin()
         {
             binCurrentCapacity = 0;

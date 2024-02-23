@@ -5,17 +5,20 @@
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
 <div class="text-center">
-	<h2>$@Model.playerData.Dollars</h2>
+	<h2 class="text-success">$@Model.playerData.Dollars</h2>
 </div>
 
 
 <div class="row">
 
-	<div class="col-2">
-		<h2>Upgrades</h2>
-		<h3>som</h3>
-		<h3>som</h3>
-		<h3>som</h3>
+	<div class="btn-group-vertical col-2">
+		<h2 class="align-self-center text-info">Upgrades</h2>
+		<button type="button" class="btn btn-info">General Upgrade</button>
+		<button type="button" class="btn btn-info mb-1"> General Upgrade</button>
+		<button type="button" class="btn btn-success"> Bin Upgarde</button>
+		<button type="button" class="btn btn-success mb-1">Bin Upgarde</button>
+		<button type="button" class="btn btn-warning">Truck Upgarde</button>
+		<button type="button" class="btn btn-warning">Truck Upgarde</button>
 	</div>
 
 	<script>
@@ -48,7 +51,7 @@
 
 
 
-	<div class="col-2">
+	<div class="col-8 text-center">
 
 		@using (Html.BeginForm("Recycle", "Game"))
 		{
@@ -71,9 +74,16 @@
 
 
 
-<div class="text-center align-text-bottom">
-	<img src="https://catalog.carlislefsp.com/images/1600x1600/270893.jpg" width="400" />
+<div class="text-center">
+	<img src="/images/RecycleBin.png" width="400" />
 </div>
+
+<div class="progress">
+	<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
+</div>
+
+
+
 @* <div class="text-center">
     <partial name="_playerDataPartialView.cshtml">
 </div>
