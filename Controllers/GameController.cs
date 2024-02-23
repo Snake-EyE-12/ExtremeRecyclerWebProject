@@ -62,9 +62,10 @@ namespace ExtremeRecycler.Controllers
             }
             
 
-            PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 1, 0));
+            //PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 1, 0));
             PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 2, 0));
-            PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 3, 0)); //FOR CHASE - THIS WAS THE PENALTY ONE
+            //PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 3, 0)); //FOR CHASE - THIS WAS THE PENALTY ONE
+            PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 10, 0)); //FOR JACOB - THIS WAS THE SELL MULTIPLIER
             //ADD ALL UPGRADES WITH ASSOCIATED ID
 
 			PlayerData pd = new PlayerData(0, currentPlayer);
@@ -83,7 +84,6 @@ namespace ExtremeRecycler.Controllers
             Item item = ItemDal.Get(itemID);
             if(item.recyclable)
             {
-                // ===============================================================================Upgrade Check - Bin Capacity
                 item.OnRecycle(pd);
             }
             else pd.Dollars -= GetUpgradeValue("PenaltyMinimizer", pd); // CAN GO BELOW ZERO
@@ -119,6 +119,10 @@ namespace ExtremeRecycler.Controllers
             var sUpgrade = pUpgrade.First(x => x.AssociatedUser == pd.Username);
 			sUpgrade.UpgradeLevel++;
             PlayerUpgradeDal.Update(sUpgrade);
+            if (upgrade.UpgradeName.Equals("BinCapacity"))
+            {
+                pd.binMaxCapacity = pd.binBaseMaxCapacity + GetUpgradeValue("BinCapacity", pd);
+            }
 		}
 
         public IActionResult Sell(int id)
@@ -127,8 +131,7 @@ namespace ExtremeRecycler.Controllers
 			// ===================================================================================Upgrade Check - Truck Delay
 			//if true (timer has past) then start another here
 			PlayerData playerData = PlayerDal.Get(id);
-			// ===================================================================================Upgrade Check - Bonus Sell Value - DONE
-			playerData.Dollars += playerData.binValue * GetUpgradeValue("SellMultiplier", playerData); ;
+			playerData.Dollars += playerData.binValue * GetUpgradeValue("SellMultiplier", playerData);
             playerData.EmptyBin();
             PlayerDal.Update(playerData);
 			return RedirectToAction("GamePage", "Game", GetNewPageData());
