@@ -11,6 +11,12 @@ namespace ExtremeRecycler.Models
             this.Item = item;
             this.PlayerUpgrades = upgrades;
         }
+
+        public BigModel(PlayerData playerdata, Item item)
+        {
+            this.playerData = playerdata;
+            this.Item = item;
+        }
         public PlayerData playerData { get; set; }
         public Item Item { get; set; }
         public IEnumerable<ValueUpgrade> PlayerUpgrades { get; set; }
