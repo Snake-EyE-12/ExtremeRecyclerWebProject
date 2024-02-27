@@ -43,9 +43,25 @@ namespace ExtremeRecycler.Controllers
         private Item GetRandomItem()
         {
             Random random = new Random();
-			//Upgrade Randomization
-			// ===================================================================================Upgrade Check - Item Rarity
-			return ItemDal.GetAll()[random.Next() % ItemDal.GetAll().Count];
+            PlayerData pd = GetMatchingPlayerData();
+            float randomValue = random.Next(1, 1000);
+            randomValue += GetUpgradeValue("ItemRarity", pd);
+
+            IEnumerable<Item> itemList;
+            if(randomValue > 950)
+            {
+                itemList = ItemDal.GetAll().Where(x => x.rarity == 3);
+            }
+            else if(randomValue > 700)
+            {
+                itemList = ItemDal.GetAll().Where(x => x.rarity == 2);
+            }
+            else
+            {
+                itemList = ItemDal.GetAll().Where(x => x.rarity == 1);
+            }
+
+            return itemList.ElementAt(random.Next() % itemList.Count());
         }
         private PlayerData GetMatchingPlayerData()
         {
@@ -62,11 +78,12 @@ namespace ExtremeRecycler.Controllers
             }
             
 
-            //PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 1, 0));
             PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 2, 0));
-            //PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 3, 0)); //FOR CHASE - THIS WAS THE PENALTY ONE
-            PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 10, 0)); //FOR JACOB - THIS WAS THE SELL MULTIPLIER
-            //ADD ALL UPGRADES WITH ASSOCIATED ID
+            PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 6, 0));
+            PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 7, 0)); 
+            PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 9, 0)); 
+            PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 10, 0));
+            PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 11, 0)); 
 
 			PlayerData pd = new PlayerData(0, currentPlayer);
             PlayerDal.Add(pd);
