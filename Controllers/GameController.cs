@@ -15,6 +15,7 @@ namespace ExtremeRecycler.Controllers
 		DataAccessLayer<ValueUpgrade> UpgradeDal;
 		DataAccessLayer<PlayerData> PlayerDal;
         DataAccessLayer<PlayerUpgrade> PlayerUpgradeDal;
+        private DateTime timer;
 		public GameController(DataAccessLayer<Item> indalItem, DataAccessLayer<ValueUpgrade> indalUpgrade, DataAccessLayer<PlayerData> indalPlayer, DataAccessLayer<PlayerUpgrade> indalPlayerUpgrade)
 		{
 			ItemDal = indalItem;
@@ -144,13 +145,17 @@ namespace ExtremeRecycler.Controllers
 
         public IActionResult Sell(int id)
         {
-			// need to check timer at this point
-			// ===================================================================================Upgrade Check - Truck Delay
-			//if true (timer has past) then start another here
-			PlayerData playerData = PlayerDal.Get(id);
-			playerData.Dollars += playerData.binValue * GetUpgradeValue("SellMultiplier", playerData);
-            playerData.EmptyBin();
-            PlayerDal.Update(playerData);
+            if (timer.CompareTo(DateTime.Now) < 0)
+            {
+                PlayerData playerData = PlayerDal.Get(id);
+                timer = DateTime.Now;
+                timer.AddMilliseconds(5000);
+                //timer.AddMilliseconds(GetUpgradeValue("TruckDelay", playerData));
+                // ===================================================================================Upgrade Check - Truck Delay
+                playerData.Dollars += playerData.binValue * GetUpgradeValue("SellMultiplier", playerData);
+                playerData.EmptyBin();
+                PlayerDal.Update(playerData);
+            }
 			return RedirectToAction("GamePage", "Game", GetNewPageData());
 		}
 
