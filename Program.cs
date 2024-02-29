@@ -75,7 +75,7 @@ namespace ExtremeRecycler
 
 			app.MapControllerRoute(
 				name: "default",
-				pattern: "{controller=Home}/{action=Index}/{id?}");
+				pattern: "{controller=Game}/{action=GamePage}/{id?}");
 			app.MapRazorPages();
 
 			app.Run();

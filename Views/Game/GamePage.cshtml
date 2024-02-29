@@ -1,5 +1,111 @@
 ﻿@model BigModel
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<div class="text-center">
+	<h2 class="text-success">$@Model.playerData.Dollars</h2>
+</div>
+
+
+<div class="row">
+
+	<div class="btn-group-vertical col-2">
+		<h2 class="align-self-center text-info">Upgrades</h2>
+		@foreach (var upgrade in Model.PlayerUpgrades)
+		{
+		<div>
+			<partial name="partialUpgradePage.cshtml" for="@upgrade" />
+		</div>
+		}
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			$(document).contextmenu(function () {
+				return false;
+			});
+
+			$('.game-button').mousedown(function (event) {
+				if (event.which == 3) {
+					console.log("event 3. right click");
+					console.log(this.getAttribute("value"));
+
+					//send click to event in button controller
+
+					var BigModel = $(this).serialize();
+
+					//URL, Data and a callback
+					$.post("@Url.Action("Trash", "Game")", { itemID: this.getAttribute("value") }, function (data) {
+						//get some data back from the method
+						console.log(data);
+						//refresh the entire page
+						$("body").html(data);
+					});
+				}
+			});
+		});
+	</script>
+
+
+	<div class="col-8 text-center">
+
+		@using (Html.BeginForm("Recycle", "Game"))
+		{
+			<button class="game-button" type="submit" name="itemID" value="@Model.Item.ID">
+				<img src="@Model.Item.image" />
+			</button>
+			@* <div>
+		<form>
+		<input name="itemID" hidden value="@Model.Item.ID" />
+		<button type="submit" asp-action="Recycle" asp-controller="Game">Recycle</button>
+		<button type="submit" asp-action="Trash" asp-controller="Game">Trash</button>
+		</form>
+		</div> *@
+
+		}
+	</div>
+
+
+
+	<div class="col-2">
+		<h2>
+			Leaderboard
+		</h2>
+
+	</div>
+</div>
+
+
+
+<div class="text-center">
+	<img src="/images/RecycleBin.png" width="400" />
+	<div>
+		Bin Value: @Model.playerData.binValue
+		Bin: @Model.playerData.binCurrentCapacity / @Model.playerData.binMaxCapacity
+	</div>
+	<form asp-action="Sell" asp-controller="Game">
+		<input name="id" type="hidden" value="@Model.playerData.ID" />
+		<button type="submit">Sell</button>
+	</form>
+</div>
+
+<div class="progress">
+	<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
+</div>
+
+
+
+@* <div class="text-center">
+    <partial name="_playerDataPartialView.cshtml">
+</div>
+<div class="align-content-center">
+    <partial name="_itemDataPartialView.cshtml">
+</div> *@
+
+
+@* @model BigModel
+
 <div>
 	Money: @Model.playerData.Dollars
 </div>
@@ -30,4 +136,4 @@
 <form asp-action="Sell" asp-controller="Game">
 	<input name="id" type="hidden" value="@Model.playerData.ID" />
 	<button type="submit">Sell</button>
-</form>
+</form> *@

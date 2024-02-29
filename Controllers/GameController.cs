@@ -2,7 +2,9 @@
 using ExtremeRecycler.Interfaces;
 using ExtremeRecycler.Models;
 using ExtremeRecycler.Models.Upgrades;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics;
 using System.Numerics;
 using System.Security.Claims;
@@ -70,6 +72,7 @@ namespace ExtremeRecycler.Controllers
             {
                 Console.WriteLine("Not Signed In");
                 //Return Error or Login Page
+                return null;
             }
 			PlayerData data = PlayerDal.GetAll().FirstOrDefault(x => x.Username.Equals(currentPlayer));
             if(data != default(PlayerData))
@@ -162,9 +165,16 @@ namespace ExtremeRecycler.Controllers
             return View(sortedList);
         }
 
+		[Authorize]
 		public IActionResult GamePage()
 		{
-			return View(GetNewPageData());
+            PlayerData pd = GetMatchingPlayerData();
+            if (pd == null)
+            {
+                return PartialView("_LoginPartial");
+                //return View()
+            }
+            return View(GetNewPageData());
 		}
 
 		public IActionResult TempUpgradePage() //CAN BE REMOVED
