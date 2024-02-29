@@ -17,7 +17,6 @@ namespace ExtremeRecycler.Controllers
 		DataAccessLayer<ValueUpgrade> UpgradeDal;
 		DataAccessLayer<PlayerData> PlayerDal;
         DataAccessLayer<PlayerUpgrade> PlayerUpgradeDal;
-        private DateTime timer;
 		public GameController(DataAccessLayer<Item> indalItem, DataAccessLayer<ValueUpgrade> indalUpgrade, DataAccessLayer<PlayerData> indalPlayer, DataAccessLayer<PlayerUpgrade> indalPlayerUpgrade)
 		{
 			ItemDal = indalItem;
@@ -151,8 +150,8 @@ namespace ExtremeRecycler.Controllers
             if (timer.CompareTo(DateTime.Now) < 0)
             {
                 PlayerData playerData = PlayerDal.Get(id);
-                timer = DateTime.Now;
-                timer.AddMilliseconds(5000);
+                playerData.sellAvailableTime = DateTime.Now;
+                playerData.sellAvailableTime.AddMilliseconds(50000);
                 //timer.AddMilliseconds(GetUpgradeValue("TruckDelay", playerData));
                 // ===================================================================================Upgrade Check - Truck Delay
                 playerData.Dollars += playerData.binValue * GetUpgradeValue("SellMultiplier", playerData);
