@@ -151,13 +151,13 @@ namespace ExtremeRecycler.Controllers
             if (playerData.sellAvailableTime.CompareTo(DateTime.Now) < 0)
             {
                 playerData.sellAvailableTime = DateTime.Now;
-                playerData.sellAvailableTime = playerData.sellAvailableTime.AddMilliseconds(GetUpgradeValue("TruckDelay", playerData));
+                playerData.sellAvailableTime = playerData.sellAvailableTime.AddSeconds(GetUpgradeValue("TruckDelay", playerData));
                 // ===================================================================================Upgrade Check - Truck Delay
                 playerData.Dollars += playerData.binValue * GetUpgradeValue("SellMultiplier", playerData);
                 playerData.EmptyBin();
                 PlayerDal.Update(playerData);
             }
-			return RedirectToAction("GamePage", "Game", GetNewPageData());
+            return RedirectToAction("GamePage", "Game", GetNewPageData());
 		}
 
         public IActionResult Leaderboard()
