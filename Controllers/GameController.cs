@@ -151,7 +151,7 @@ namespace ExtremeRecycler.Controllers
             if (playerData.sellAvailableTime.CompareTo(DateTime.Now) < 0)
             {
                 playerData.sellAvailableTime = DateTime.Now;
-                playerData.sellAvailableTime.AddMilliseconds(50000);
+                playerData.sellAvailableTime = playerData.sellAvailableTime.AddMilliseconds(500000);
                 //timer.AddMilliseconds(GetUpgradeValue("TruckDelay", playerData));
                 // ===================================================================================Upgrade Check - Truck Delay
                 playerData.Dollars += playerData.binValue * GetUpgradeValue("SellMultiplier", playerData);
