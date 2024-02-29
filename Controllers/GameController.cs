@@ -140,7 +140,8 @@ namespace ExtremeRecycler.Controllers
         public IActionResult Leaderboard()
         {
             // sort algorythm goes here
-            List<PlayerData> players = PlayerDal.GetAll();
+            ViewBag.name = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			List<PlayerData> players = PlayerDal.GetAll();
             var sortedList = players.OrderByDescending(obj => obj.Dollars).ToList();
             return View(sortedList);
         }

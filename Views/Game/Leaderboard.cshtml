@@ -6,8 +6,11 @@
 	@foreach(PlayerData data in Model)
 	{
 		<div>
-
-		<partial name="partialLeaderboard.cshtml" for="@data" />
+			@if (ViewBag.name == data.Username)
+			{
+				<h3>---YOU---</h3>
+			}
+			<partial name="partialLeaderboard.cshtml" for="@data" />
 		</div>
 	}
 	
