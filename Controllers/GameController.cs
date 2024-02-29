@@ -147,9 +147,9 @@ namespace ExtremeRecycler.Controllers
 
         public IActionResult Sell(int id)
         {
-            if (timer.CompareTo(DateTime.Now) < 0)
+            PlayerData playerData = PlayerDal.Get(id);
+            if (playerData.sellAvailableTime.CompareTo(DateTime.Now) < 0)
             {
-                PlayerData playerData = PlayerDal.Get(id);
                 playerData.sellAvailableTime = DateTime.Now;
                 playerData.sellAvailableTime.AddMilliseconds(50000);
                 //timer.AddMilliseconds(GetUpgradeValue("TruckDelay", playerData));
