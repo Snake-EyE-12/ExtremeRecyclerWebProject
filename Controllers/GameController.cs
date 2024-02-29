@@ -152,7 +152,6 @@ namespace ExtremeRecycler.Controllers
             {
                 playerData.sellAvailableTime = DateTime.Now;
                 playerData.sellAvailableTime = playerData.sellAvailableTime.AddSeconds(GetUpgradeValue("TruckDelay", playerData));
-                // ===================================================================================Upgrade Check - Truck Delay
                 playerData.Dollars += playerData.binValue * GetUpgradeValue("SellMultiplier", playerData);
                 playerData.EmptyBin();
                 PlayerDal.Update(playerData);
