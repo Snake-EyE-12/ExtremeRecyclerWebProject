@@ -50,11 +50,11 @@ namespace ExtremeRecycler.Controllers
             randomValue += GetUpgradeValue("ItemRarity", pd);
 
             IEnumerable<Item> itemList;
-            if(randomValue > 950)
+            if(randomValue > 980)
             {
                 itemList = ItemDal.GetAll().Where(x => x.rarity == 3);
             }
-            else if(randomValue > 700)
+            else if(randomValue > 850)
             {
                 itemList = ItemDal.GetAll().Where(x => x.rarity == 2);
             }
