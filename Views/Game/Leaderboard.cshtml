@@ -12,7 +12,7 @@
         <tbody>
 	        @for(int pd = 0; pd < Model.Count(); pd++)
 	        {
-                <tr class=@(ViewBag.name == Model.ToList()[pd].Username ? "table-success" : "table-primary")>
+                <tr class=@(ViewBag.name == Model.ToList()[pd].DisplayName ? "table-success" : "table-primary")>
                     <th scope="row">@(pd + 1)</th>
                     <partial name="partialLeaderboard.cshtml" for="@Model.ToList()[pd]" />
                 </tr>

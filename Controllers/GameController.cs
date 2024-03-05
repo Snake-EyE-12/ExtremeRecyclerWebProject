@@ -88,7 +88,7 @@ namespace ExtremeRecycler.Controllers
             PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 10, 0));
             PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 11, 0)); 
 
-			PlayerData pd = new PlayerData(0, currentPlayer);
+			PlayerData pd = new PlayerData(0, currentPlayer, "Enter Your Name");
             PlayerDal.Add(pd);
             return pd;
 		}
@@ -201,5 +201,12 @@ namespace ExtremeRecycler.Controllers
             //If it gets here, there was a Problem
             return 0.0f;
         }
+        private IActionResult ChangeName(string name)
+        {
+            PlayerData pd = GetMatchingPlayerData();
+            pd.DisplayName = name;
+            PlayerDal.Update(pd);
+			return RedirectToAction("GamePage", "Game", GetNewPageData());
+		}
 	}
 }

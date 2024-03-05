@@ -80,7 +80,10 @@
 
 	<div class="col-2">
 		<h2 class="text-primary">
-			PlayerName
+			<form asp-controller="Game" asp-action="ChangeName">
+				<input value="@Model.playerData.DisplayName" placeholder="@Model.playerData.DisplayName" name="name" />
+				<button type="submit">Save</button>
+			</form>
 		</h2>
 
 	</div>
