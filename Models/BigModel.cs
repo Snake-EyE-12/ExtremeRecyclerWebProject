@@ -17,8 +17,10 @@ namespace ExtremeRecycler.Models
             this.playerData = playerdata;
             this.Item = item;
         }
+
         public PlayerData playerData { get; set; }
         public Item Item { get; set; }
+        public IEnumerable<PlayerData> AllPlayerData{ get; set; }
         public IEnumerable<ValueUpgrade> PlayerUpgrades { get; set; }
     }
 }
