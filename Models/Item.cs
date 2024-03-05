@@ -4,10 +4,6 @@ namespace ExtremeRecycler.Models
 {
 	public class Item
 	{
-		public delegate void RecycleEventHandler(object sender, RecycleEventArgs e);
-
-		public event RecycleEventHandler RecycleEvent;
-
 		public Item() { }
 		public Item(string Image)
 		{
@@ -23,41 +19,13 @@ namespace ExtremeRecycler.Models
 
 		public virtual void OnRecycle(PlayerData data)
 		{
-			data.CollectItem(this);
-			//Recycle();
+			if(recyclable)data.CollectItem(this);
+			else data.CollectBadItem(this);
 		}
 
 		public virtual void OnTrash(PlayerData data)
 		{
-
-		}
-
-		protected void Recycle()
-		{
-			OnRecycle(new RecycleEventArgs(value, capacity));
-		}
-
-		protected virtual void OnRecycle(RecycleEventArgs e)
-		{
-			RecycleEventHandler handler = RecycleEvent;
-			handler?.Invoke(this, e);
-		}
-
-		protected void Trash()
-		{
-
-		}
-	}
-
-	public class RecycleEventArgs : EventArgs
-	{
-		public float value { get; }
-		public int capacity { get; }
-
-		public RecycleEventArgs(float value, int capacity)
-		{
-			this.value = value;
-			this.capacity = capacity;
+			
 		}
 	}
 }

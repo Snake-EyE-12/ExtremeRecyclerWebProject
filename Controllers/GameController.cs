@@ -102,14 +102,12 @@ namespace ExtremeRecycler.Controllers
         {
             PlayerData pd = GetMatchingPlayerData();
             Item item = ItemDal.Get(itemID);
-            if(item.recyclable && (pd.binMaxCapacity - pd.binCurrentCapacity > item.capacity))
+            if(pd.binMaxCapacity - pd.binCurrentCapacity > item.capacity)
             {
                 item.OnRecycle(pd);
+                if(!item.recyclable) pd.Dollars -= GetUpgradeValue("PenaltyMinimizer", pd); // CAN GO BELOW ZERO
             }
-            else if(!item.recyclable)
-            {
-                pd.Dollars -= GetUpgradeValue("PenaltyMinimizer", pd); // CAN GO BELOW ZERO
-            }
+            
 			PlayerDal.Update(pd);
             return RedirectToAction("GamePage", "Game", GetNewPageData());
         }
