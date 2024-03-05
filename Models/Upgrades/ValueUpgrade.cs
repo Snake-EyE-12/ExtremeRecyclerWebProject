@@ -51,11 +51,11 @@ namespace ExtremeRecycler.Models.Upgrades
 		}
 		public float GetCurrentCost()
 		{
-			return (BaseCost * MathF.Pow(CostScalar, CurrentLevel));
+			return (float)Math.Round(BaseCost * MathF.Pow(CostScalar, CurrentLevel), 2);
 		}
 		public float Execute()
 		{
-			return BaseValue * MathF.Pow(ValueScalar, CurrentLevel);
+			return (float)Math.Round(BaseValue * MathF.Pow(ValueScalar, CurrentLevel), 2);
 		}
 	}
 }

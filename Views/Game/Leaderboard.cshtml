@@ -1,17 +1,22 @@
 ﻿@model IEnumerable<PlayerData>
 
-<div class="text-center">
-	Words
-	
-	@foreach(PlayerData data in Model)
-	{
-		<div>
-			@if (ViewBag.name == data.Username)
-			{
-				<h3>---YOU---</h3>
-			}
-			<partial name="partialLeaderboard.cshtml" for="@data" />
-		</div>
-	}
-	
+<div class="text-center col-2">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Name</th>
+                <th scope="col">Money Gained</th>
+            </tr>
+        </thead>
+        <tbody>
+	        @for(int pd = 0; pd < Model.Count(); pd++)
+	        {
+                <tr class=@(ViewBag.name == Model.ToList()[pd].Username ? "table-success" : "table-primary")>
+                    <th scope="row">@(pd + 1)</th>
+                    <partial name="partialLeaderboard.cshtml" for="@Model.ToList()[pd]" />
+                </tr>
+	        }
+        </tbody>
+    </table>
 </div>

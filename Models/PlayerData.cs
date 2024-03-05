@@ -18,6 +18,7 @@ namespace ExtremeRecycler.Models
 		[Required] public float binMaxCapacity { get; set; } = 100.0f;
 		[Required] public float binCurrentCapacity { get; set; } = 0.0f;
 		[Required] public float binValue { get; set; } = 0.0f;
+		[Required] public DateTime sellAvailableTime { get; set; }
 
 		public float binBaseMaxCapacity = 100;
 

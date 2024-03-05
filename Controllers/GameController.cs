@@ -2,7 +2,9 @@
 using ExtremeRecycler.Interfaces;
 using ExtremeRecycler.Models;
 using ExtremeRecycler.Models.Upgrades;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics;
 using System.Numerics;
 using System.Security.Claims;
@@ -48,11 +50,11 @@ namespace ExtremeRecycler.Controllers
             randomValue += GetUpgradeValue("ItemRarity", pd);
 
             IEnumerable<Item> itemList;
-            if(randomValue > 950)
+            if(randomValue > 980)
             {
                 itemList = ItemDal.GetAll().Where(x => x.rarity == 3);
             }
-            else if(randomValue > 700)
+            else if(randomValue > 850)
             {
                 itemList = ItemDal.GetAll().Where(x => x.rarity == 2);
             }
@@ -70,6 +72,7 @@ namespace ExtremeRecycler.Controllers
             {
                 Console.WriteLine("Not Signed In");
                 //Return Error or Login Page
+                return null;
             }
 			PlayerData data = PlayerDal.GetAll().FirstOrDefault(x => x.Username.Equals(currentPlayer));
             if(data != default(PlayerData))
@@ -99,11 +102,14 @@ namespace ExtremeRecycler.Controllers
         {
             PlayerData pd = GetMatchingPlayerData();
             Item item = ItemDal.Get(itemID);
-            if(item.recyclable)
+            if(item.recyclable && (pd.binMaxCapacity - pd.binCurrentCapacity > item.capacity))
             {
                 item.OnRecycle(pd);
             }
-            else pd.Dollars -= GetUpgradeValue("PenaltyMinimizer", pd); // CAN GO BELOW ZERO
+            else if(!item.recyclable)
+            {
+                pd.Dollars -= GetUpgradeValue("PenaltyMinimizer", pd); // CAN GO BELOW ZERO
+            }
 			PlayerDal.Update(pd);
             return RedirectToAction("GamePage", "Game", GetNewPageData());
         }
@@ -144,14 +150,16 @@ namespace ExtremeRecycler.Controllers
 
         public IActionResult Sell(int id)
         {
-			// need to check timer at this point
-			// ===================================================================================Upgrade Check - Truck Delay
-			//if true (timer has past) then start another here
-			PlayerData playerData = PlayerDal.Get(id);
-			playerData.Dollars += playerData.binValue * GetUpgradeValue("SellMultiplier", playerData);
-            playerData.EmptyBin();
-            PlayerDal.Update(playerData);
-			return RedirectToAction("GamePage", "Game", GetNewPageData());
+            PlayerData playerData = PlayerDal.Get(id);
+            if (playerData.sellAvailableTime.CompareTo(DateTime.Now) < 0)
+            {
+                playerData.sellAvailableTime = DateTime.Now;
+                playerData.sellAvailableTime = playerData.sellAvailableTime.AddSeconds(GetUpgradeValue("TruckDelay", playerData));
+                playerData.Dollars += playerData.binValue * GetUpgradeValue("SellMultiplier", playerData);
+                playerData.EmptyBin();
+                PlayerDal.Update(playerData);
+            }
+            return RedirectToAction("GamePage", "Game", GetNewPageData());
 		}
 
         public IActionResult Leaderboard()
@@ -163,9 +171,16 @@ namespace ExtremeRecycler.Controllers
             return View(sortedList);
         }
 
+		[Authorize]
 		public IActionResult GamePage()
 		{
-			return View(GetNewPageData());
+            PlayerData pd = GetMatchingPlayerData();
+            if (pd == null)
+            {
+                return PartialView("_LoginPartial");
+                //return View()
+            }
+            return View(GetNewPageData());
 		}
 
 		public IActionResult TempUpgradePage() //CAN BE REMOVED

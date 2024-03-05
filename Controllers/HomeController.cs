@@ -1,4 +1,5 @@
 ﻿using ExtremeRecycler.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -13,15 +14,19 @@ namespace ExtremeRecycler.Controllers
 			_logger = logger;
 		}
 
-		PlayerData pd = new PlayerData(5.32f, null);
-		Item itm = new Item("https://th.bing.com/th/id/OIP.yoQQCDKIK7zg7jZEBJr_1QAAAA?w=176&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7");
-		
-		
+		//PlayerData pd = new PlayerData(5.32f, null);
+		//Item itm = new Item("https://th.bing.com/th/id/OIP.yoQQCDKIK7zg7jZEBJr_1QAAAA?w=176&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7");
+
+		[Authorize]
 		public IActionResult Index()
 		{
-			BigModel bm = new BigModel(pd, itm, null);
-
-            return View(bm);
+			return RedirectToAction("GamePage", "Game");
+			
+			//BigModel bm = new BigModel(pd, itm, null);
+			//if (bm.playerData == null)
+			//{
+			//}
+            //return View(bm);
 		}
 
 		public IActionResult Privacy()

@@ -1,6 +1,5 @@
 ﻿@model BigModel
 
-
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
@@ -13,12 +12,12 @@
 
 	<div class="btn-group-vertical col-2">
 		<h2 class="align-self-center text-info">Upgrades</h2>
-		<button type="button" class="btn btn-info">General Upgrade</button>
-		<button type="button" class="btn btn-info mb-1"> General Upgrade</button>
-		<button type="button" class="btn btn-success"> Bin Upgarde</button>
-		<button type="button" class="btn btn-success mb-1">Bin Upgarde</button>
-		<button type="button" class="btn btn-warning">Truck Upgarde</button>
-		<button type="button" class="btn btn-warning">Truck Upgarde</button>
+@* 		@foreach (var upgrade in Model.PlayerUpgrades)
+		{
+			<div>
+				<partial name="partialUpgradePage.cshtml" for="@upgrade" />
+			</div>
+		} *@
 	</div>
 
 	<script>
@@ -37,7 +36,7 @@
 					var BigModel = $(this).serialize();
 
 						//URL, Data and a callback
-					$.post("@Url.Action("Trash", "Game")", "BigModel", function (data) {
+					$.post("@Url.Action("Trash", "Game")", { itemID: this.getAttribute("value") }, function (data) {
 							//get some data back from the method
 							console.log(data);
 							//refresh the entire page
@@ -49,15 +48,20 @@
 	</script>
 
 
-
-
 	<div class="col-8 text-center">
 
 		@using (Html.BeginForm("Recycle", "Game"))
 		{
-			<button class="game-button" type="submit" name="model" value=@Model>
+			<button class="game-button" type="submit" name="itemID" value="@Model.Item.ID">
 				<img src="@Model.Item.image" />
 			</button>
+			@* <div>
+		<form>
+		<input name="itemID" hidden value="@Model.Item.ID" />
+		<button type="submit" asp-action="Recycle" asp-controller="Game">Recycle</button>
+		<button type="submit" asp-action="Trash" asp-controller="Game">Trash</button>
+		</form>
+		</div> *@
 
 		}
 	</div>
@@ -75,6 +79,14 @@
 
 <div class="text-center">
 	<img src="/images/RecycleBin.png" width="400" />
+	<div>
+		Bin Value: @Model.playerData.binValue
+		Bin: @Model.playerData.binCurrentCapacity / @Model.playerData.binMaxCapacity
+	</div>
+	<form asp-action="Sell" asp-controller="Game">
+		<input name="id" type="hidden" value="@Model.playerData.ID" />
+		<button type="submit">Sell</button>
+	</form>
 </div>
 
 <div class="progress">
