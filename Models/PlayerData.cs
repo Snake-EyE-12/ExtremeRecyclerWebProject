@@ -33,5 +33,10 @@ namespace ExtremeRecycler.Models
             binCurrentCapacity += item.capacity;
             binValue += item.value;
         }
+
+		public void CollectBadItem(Item item)
+		{
+			binCurrentCapacity += item.capacity;
+		}
     }
 }
