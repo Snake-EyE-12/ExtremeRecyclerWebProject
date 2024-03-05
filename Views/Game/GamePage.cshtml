@@ -55,6 +55,7 @@
 			<button class="game-button" type="submit" name="itemID" value="@Model.Item.ID">
 				<img src="@Model.Item.image" />
 			</button>
+
 			@* <div>
 		<form>
 		<input name="itemID" hidden value="@Model.Item.ID" />
@@ -64,13 +65,22 @@
 		</div> *@
 
 		}
+			<img src="/images/RecycleBin.png" width="400" />
+			<div>
+				Bin Value: @Model.playerData.binValue
+				Bin: @Model.playerData.binCurrentCapacity / @Model.playerData.binMaxCapacity
+			</div>
+			<form asp-action="Sell" asp-controller="Game">
+				<input name="id" type="hidden" value="@Model.playerData.ID" />
+				<button type="submit">Sell</button>
+			</form>
 	</div>
 
 
 
 	<div class="col-2">
-		<h2>
-			Leaderboard
+		<h2 class="text-primary">
+			PlayerName
 		</h2>
 
 	</div>
@@ -78,7 +88,7 @@
 
 
 
-<div class="text-center">
+@* <div class="text-center">
 	<img src="/images/RecycleBin.png" width="400" />
 	<div>
 		Bin Value: @Model.playerData.binValue
@@ -88,7 +98,7 @@
 		<input name="id" type="hidden" value="@Model.playerData.ID" />
 		<button type="submit">Sell</button>
 	</form>
-</div>
+</div> *@
 
 <div class="progress">
 	<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
