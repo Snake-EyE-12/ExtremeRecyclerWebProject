@@ -199,10 +199,10 @@ namespace ExtremeRecycler.Controllers
             //If it gets here, there was a Problem
             return 0.0f;
         }
-        private IActionResult ChangeName(string name)
+        public IActionResult ChangeName(string id)
         {
             PlayerData pd = GetMatchingPlayerData();
-            pd.DisplayName = name;
+            pd.DisplayName = id;
             PlayerDal.Update(pd);
 			return RedirectToAction("GamePage", "Game", GetNewPageData());
 		}
