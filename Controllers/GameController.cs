@@ -147,8 +147,6 @@ namespace ExtremeRecycler.Controllers
                         UpdatePlayerUpgrade(pd, upgrade);
                         break;
                     }
-
-                    
 				}
 			}
 			return View("GamePage", GetNewPageData());
@@ -200,7 +198,7 @@ namespace ExtremeRecycler.Controllers
 			ViewBag.headerSize = 1;
 			ViewBag.textColor = "success";
 			ViewBag.feedbackText = "Bin Sold!";
-            ViewBag.test = "<img src=\"/Images/BirthdayCake.png\">";
+            ViewBag.test = "<img src=\"/Images/Coins.png\">";
 
 			PlayerData playerData = PlayerDal.Get(id);
             if (playerData.sellAvailableTime.CompareTo(DateTime.Now) < 0)
