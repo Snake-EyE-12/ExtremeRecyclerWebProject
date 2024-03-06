@@ -4,14 +4,14 @@
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
 <div class="text-center">
-	<h2 class="text-success">$@Model.playerData.Dollars</h2>
+	<h2 class="text-success">$@Model.playerData.Dollars.ToString("0.00")</h2>
 </div>
 
 
 <div class="row">
 
 	<div class="btn-group-vertical col-2">
-		<h2 class="align-self-center text-info">Upgrades</h2>
+		<h2 class="text-info">Upgrades</h2>
 		@foreach (var upgrade in Model.PlayerUpgrades)
 		{
 			<div>
@@ -79,6 +79,9 @@
 
 
 	<div class="col-2">
+
+		<partial name="Leaderboard.cshtml" for="@Model.AllPlayerData"/>
+
 		<h2 class="text-primary">
 			<form asp-controller="Game" asp-action="ChangeName">
 				<input name="id" type="text" value="@Model.playerData.DisplayName" /> @* placeholder="@Model.playerData.DisplayName"*@

@@ -5,11 +5,12 @@ namespace ExtremeRecycler.Models
     public class BigModel
     {
         public BigModel() { }
-        public BigModel(PlayerData playerdata, Item item, IEnumerable<ValueUpgrade> upgrades)
+        public BigModel(PlayerData playerdata, Item item, IEnumerable<ValueUpgrade> upgrades, IEnumerable<PlayerData> allplayerdata)
         {
             this.playerData = playerdata;
             this.Item = item;
             this.PlayerUpgrades = upgrades;
+            this.AllPlayerData = allplayerdata;
         }
 
         public BigModel(PlayerData playerdata, Item item)

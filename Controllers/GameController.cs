@@ -31,7 +31,9 @@ namespace ExtremeRecycler.Controllers
             PlayerData currentPlayerData = GetMatchingPlayerData();
             Item item = GetRandomItem();
             IEnumerable<ValueUpgrade> playersUpgrades = GetPlayerUpgrades(currentPlayerData.Username);
-            return new BigModel(currentPlayerData, item, playersUpgrades);
+			ViewBag.name = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			IEnumerable<PlayerData> allplayerdata = PlayerDal.GetAll().OrderByDescending(obj => obj.Dollars);
+            return new BigModel(currentPlayerData, item, playersUpgrades, allplayerdata);
         }
         private IEnumerable<ValueUpgrade> GetPlayerUpgrades(string associatedUser)
         {
@@ -146,6 +148,7 @@ namespace ExtremeRecycler.Controllers
             {
                 pd.binMaxCapacity = pd.binBaseMaxCapacity + GetUpgradeValue("BinCapacity", pd);
             }
+            PlayerDal.Update(pd);
 		}
 
         public IActionResult ProgressBar()

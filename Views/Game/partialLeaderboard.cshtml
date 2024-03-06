@@ -1,4 +1,4 @@
 ﻿@model PlayerData
 
-<td>@Model.DisplayName</td>
-<td>@Model.Dollars</td>
+<td>@(Model.DisplayName == "" ? "Anonymous" : Model.DisplayName)</td>
+<td>@Model.Dollars.ToString("0.00")</td>
