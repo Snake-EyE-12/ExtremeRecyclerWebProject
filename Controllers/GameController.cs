@@ -29,7 +29,8 @@ namespace ExtremeRecycler.Controllers
             PlayerData currentPlayerData = GetMatchingPlayerData();
             Item item = GetRandomItem();
             IEnumerable<ValueUpgrade> playersUpgrades = GetPlayerUpgrades(currentPlayerData.Username);
-            return new BigModel(currentPlayerData, item, playersUpgrades);
+            IEnumerable<PlayerData> allplayerdata = PlayerDal.GetAll();
+            return new BigModel(currentPlayerData, item, playersUpgrades, allplayerdata);
         }
         private IEnumerable<ValueUpgrade> GetPlayerUpgrades(string associatedUser)
         {
