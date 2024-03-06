@@ -121,8 +121,6 @@ namespace ExtremeRecycler.Controllers
 			PlayerData pd = GetMatchingPlayerData();
             Item item = ItemDal.Get(itemID);
 
-
-
             if(pd.binMaxCapacity - pd.binCurrentCapacity > item.capacity)
             {
 				item.OnRecycle(pd);
@@ -164,7 +162,7 @@ namespace ExtremeRecycler.Controllers
                     {
 						ViewBag.headerSize = 2;
 						ViewBag.textColor = "primary";
-                        ViewBag.feedbackText = upgrade.UpgradeName + " Upgrade Bought!";
+                        ViewBag.feedbackText = upgrade.DisplayName + " Upgrade Bought!";
 
 						PlayerDal.Update(pd);
                         UpdatePlayerUpgrade(pd, upgrade);
@@ -174,7 +172,7 @@ namespace ExtremeRecycler.Controllers
                     {
 						ViewBag.headerSize = 2;
 						ViewBag.textColor = "danger";
-						ViewBag.feedbackText = upgrade.UpgradeName + " is too expensive!";
+						ViewBag.feedbackText = upgrade.DisplayName + " is too expensive!";
 					}
 				}
 			}
