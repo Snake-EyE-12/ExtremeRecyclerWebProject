@@ -18,8 +18,10 @@ namespace ExtremeRecycler.Controllers
 		DataAccessLayer<PlayerData> PlayerDal;
         DataAccessLayer<PlayerUpgrade> PlayerUpgradeDal;
 
-        static float currentMinute;// tell NO ONE
-		static float currentSecond;// tell NO ONE
+        static DateTime startTime;
+
+        //static float currentMinute;// tell NO ONE
+		//static float currentSecond;// tell NO ONE
 		public GameController(DataAccessLayer<Item> indalItem, DataAccessLayer<ValueUpgrade> indalUpgrade, DataAccessLayer<PlayerData> indalPlayer, DataAccessLayer<PlayerUpgrade> indalPlayerUpgrade)
 		{
 			ItemDal = indalItem;
@@ -159,26 +161,33 @@ namespace ExtremeRecycler.Controllers
             //PlayerData playerData = PlayerDal.Get(id);
             if (GetMatchingPlayerData().sellAvailableTime.CompareTo(DateTime.Now) > 0)
             {
-				float updatedData = currentSecond / GetUpgradeValue("TruckDelay", GetMatchingPlayerData());
+				float updatedData = getTimePassed() / GetUpgradeValue("TruckDelay", GetMatchingPlayerData());
 
-				currentSecond += 0.11f; //runs ever .1 seconds but a little extra to accomidate for lag and page refresh
+				//currentSecond += 0.11f; //runs ever .1 seconds but a little extra to accomidate for lag and page refresh
 				updatedData *= 100;
 
 				return PartialView("partialBar", updatedData);
 			}
-			return PartialView("partialBar", 0f);
-			
 
+			return PartialView("partialBar", 0f);
 		}
 
+        private float getTimePassed()
+        {
+            float miliseconds = DateTime.Now.Millisecond - startTime.Millisecond;
+			float seconds = DateTime.Now.Second - startTime.Second;
+			float minutes = DateTime.Now.Minute - startTime.Minute;
+            float hours = DateTime.Now.Hour - startTime.Hour;
 
+			return ((hours * 3600) + (minutes * 60) + seconds + (miliseconds / 1000));
+        }
 
 		public IActionResult Sell(int id)
         {
             PlayerData playerData = PlayerDal.Get(id);
             if (playerData.sellAvailableTime.CompareTo(DateTime.Now) < 0)
             {
-                currentSecond = 0;
+                startTime = DateTime.Now;
 
 				playerData.sellAvailableTime = DateTime.Now;
                 playerData.sellAvailableTime = playerData.sellAvailableTime.AddSeconds(GetUpgradeValue("TruckDelay", playerData));
