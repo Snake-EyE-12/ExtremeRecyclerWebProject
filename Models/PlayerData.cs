@@ -7,13 +7,15 @@ namespace ExtremeRecycler.Models
 	public class PlayerData
 	{
 		public PlayerData() { }
-		public PlayerData(float dollars, string name)
+		public PlayerData(float dollars, string name, string displayName)
 		{
 			this.Dollars = dollars;
 			this.Username = name;
+			DisplayName = displayName;
 		}
 		[Key] public int ID { get; set; }
 		[Required] public string Username { get; set; }
+		[Required] public string DisplayName { get; set; }
 		[Required] public float Dollars { get; set; } = 0.00f;
 		[Required] public float binMaxCapacity { get; set; } = 100.0f;
 		[Required] public float binCurrentCapacity { get; set; } = 0.0f;
@@ -33,5 +35,10 @@ namespace ExtremeRecycler.Models
             binCurrentCapacity += item.capacity;
             binValue += item.value;
         }
+
+		public void CollectBadItem(Item item)
+		{
+			binCurrentCapacity += item.capacity;
+		}
     }
 }
