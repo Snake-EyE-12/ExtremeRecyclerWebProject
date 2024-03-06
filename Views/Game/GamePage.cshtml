@@ -10,14 +10,18 @@
 
 <div class="row">
 
-	<div class="btn-group-vertical col-2">
+	<div class="col-2">
+		<img src="~/images/ExtremeRecyclerLogo.gif"  width="200" class="mb-2"/>
 		<h2 class="text-info">Upgrades</h2>
-		@foreach (var upgrade in Model.PlayerUpgrades)
-		{
-			<div class="my-2 w-100">
-				<partial name="partialUpgradePage.cshtml" for="@upgrade" />
-			</div>
-		}
+		<div class="btn-group-vertical " >
+			@foreach (var upgrade in Model.PlayerUpgrades)
+			{
+				<div class="my-2 w-100">
+					<partial name="partialUpgradePage.cshtml" for="@upgrade" />
+				</div>
+			}
+
+		</div>
 	</div>
 
 	<script>
