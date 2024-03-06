@@ -17,6 +17,7 @@ namespace ExtremeRecycler.Models
 		[Required] public string Username { get; set; }
 		[Required] public string DisplayName { get; set; }
 		[Required] public float Dollars { get; set; } = 0.00f;
+		//[Required] public float binBaseCapacity { get; set; } = 100.0f;
 		[Required] public float binMaxCapacity { get; set; } = 100.0f;
 		[Required] public float binCurrentCapacity { get; set; } = 0.0f;
 		[Required] public float binValue { get; set; } = 0.0f;
