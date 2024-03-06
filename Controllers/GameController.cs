@@ -88,7 +88,6 @@ namespace ExtremeRecycler.Controllers
 
             PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 2, 0));
             PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 6, 0));
-            PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 7, 0)); 
             PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 9, 0)); 
             PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 10, 0));
             PlayerUpgradeDal.Add(new PlayerUpgrade(currentPlayer, 11, 0)); 
@@ -118,7 +117,7 @@ namespace ExtremeRecycler.Controllers
             if(pd.binMaxCapacity - pd.binCurrentCapacity > item.capacity)
             {
                 item.OnRecycle(pd);
-                if(!item.recyclable) pd.Dollars -= GetUpgradeValue("PenaltyMinimizer", pd); // CAN GO BELOW ZERO
+                if(!item.recyclable) pd.Dollars -= item.value * GetUpgradeValue("PenaltyMinimizer", pd); // CAN GO BELOW ZERO
             }
             
 			PlayerDal.Update(pd);
@@ -193,14 +192,14 @@ namespace ExtremeRecycler.Controllers
 
 		public IActionResult Sell(int id)
         {
-			ViewBag.headerSize = 1;
-			ViewBag.textColor = "success";
-			ViewBag.feedbackText = "Bin Sold!";
-            ViewBag.test = "<img src=\"/Images/Coins.png\">";
-
 			PlayerData playerData = PlayerDal.Get(id);
             if (playerData.sellAvailableTime.CompareTo(DateTime.Now) < 0)
             {
+			    ViewBag.headerSize = 1;
+			    ViewBag.textColor = "success";
+			    ViewBag.feedbackText = "Bin Sold!";
+                ViewBag.test = "<img src=\"/Images/Coins.png\">";
+
                 startTime = DateTime.Now;
 
 				playerData.sellAvailableTime = DateTime.Now;
