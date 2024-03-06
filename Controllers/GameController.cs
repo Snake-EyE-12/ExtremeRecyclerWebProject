@@ -17,6 +17,8 @@ namespace ExtremeRecycler.Controllers
 		DataAccessLayer<ValueUpgrade> UpgradeDal;
 		DataAccessLayer<PlayerData> PlayerDal;
         DataAccessLayer<PlayerUpgrade> PlayerUpgradeDal;
+
+        static float currentSecond; //don't tell NO ONE
 		public GameController(DataAccessLayer<Item> indalItem, DataAccessLayer<ValueUpgrade> indalUpgrade, DataAccessLayer<PlayerData> indalPlayer, DataAccessLayer<PlayerUpgrade> indalPlayerUpgrade)
 		{
 			ItemDal = indalItem;
@@ -146,14 +148,37 @@ namespace ExtremeRecycler.Controllers
             }
 		}
 
-        public IActionResult Sell(int id)
+        public IActionResult ProgressBar()
+        {
+            
+            if (GetMatchingPlayerData().sellAvailableTime.CompareTo(DateTime.Now) > 0)
+            {
+				float updatedData = currentSecond / GetUpgradeValue("TruckDelay", GetMatchingPlayerData());
+
+				currentSecond += 0.1f; //runs ever .1 seconds
+				updatedData *= 100;
+
+				Debug.WriteLine("updated to:" + updatedData);
+
+				// Assuming you're returning a partial view
+				return PartialView("partialBar", updatedData);
+			}
+
+			return PartialView("partialBar", 0f);
+		}
+
+
+
+		public IActionResult Sell(int id)
         {
             PlayerData playerData = PlayerDal.Get(id);
             if (playerData.sellAvailableTime.CompareTo(DateTime.Now) < 0)
             {
-                playerData.sellAvailableTime = DateTime.Now;
+                currentSecond = 0;
+
+				playerData.sellAvailableTime = DateTime.Now;
                 playerData.sellAvailableTime = playerData.sellAvailableTime.AddSeconds(GetUpgradeValue("TruckDelay", playerData));
-                playerData.Dollars += playerData.binValue * GetUpgradeValue("SellMultiplier", playerData);
+                playerData.Dollars += playerData.binValue; //* GetUpgradeValue("SellMultiplier", playerData);
                 playerData.EmptyBin();
                 PlayerDal.Update(playerData);
             }
@@ -178,7 +203,7 @@ namespace ExtremeRecycler.Controllers
                 return PartialView("_LoginPartial");
                 //return View()
             }
-            return View(GetNewPageData());
+			return View(GetNewPageData());
 		}
 
 		public IActionResult TempUpgradePage() //CAN BE REMOVED

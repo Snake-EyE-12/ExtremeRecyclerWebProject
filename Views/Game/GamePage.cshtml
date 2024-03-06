@@ -14,9 +14,9 @@
 		<h2 class="align-self-center text-info">Upgrades</h2>
 		@foreach (var upgrade in Model.PlayerUpgrades)
 		{
-		<div>
-			<partial name="partialUpgradePage.cshtml" for="@upgrade" />
-		</div>
+			<div>
+				<partial name="partialUpgradePage.cshtml" for="@upgrade" />
+			</div>
 		}
 	</div>
 
@@ -65,15 +65,15 @@
 		</div> *@
 
 		}
-			<img src="/images/RecycleBin.png" width="400" />
-			<div>
-				Bin Value: @Model.playerData.binValue
-				Bin: @Model.playerData.binCurrentCapacity / @Model.playerData.binMaxCapacity
-			</div>
-			<form asp-action="Sell" asp-controller="Game">
-				<input name="id" type="hidden" value="@Model.playerData.ID" />
-				<button type="submit">Sell</button>
-			</form>
+		<img src="/images/RecycleBin.png" width="400" />
+		<div>
+			Bin Value: @Model.playerData.binValue
+			Bin: @Model.playerData.binCurrentCapacity / @Model.playerData.binMaxCapacity
+		</div>
+		<form asp-action="Sell" asp-controller="Game">
+			<input name="id" type="hidden" value="@Model.playerData.ID" />
+			<button type="submit">Sell</button>
+		</form>
 	</div>
 
 
@@ -104,9 +104,36 @@
 	</form>
 </div> *@
 
-<div class="progress">
-	<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
+<div id="updatedContent">
+	<!-- Content to be updated -->
 </div>
+
+<script>
+	window.setInterval(function () {
+		updateContent()
+	}, 100);
+
+	function updateContent() {
+		$.ajax({
+			url: '@Url.Action("ProgressBar", "Game")',
+			type: 'GET',
+			success: function (data) {
+				$('#updatedContent').html(data);
+			}
+		});
+	}
+
+	// Call the function initially or trigger it based on some event
+	$(document).ready(function () {
+		updateContent(); // Call the function when the page loads
+		// You can also set a timer or event listener to periodically update the content
+	});
+</script>
+
+@* <div class="progress">
+	<div name="percent" value="4555" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
+	this is text @ViewBag.Percent
+</div> *@
 
 
 
