@@ -70,9 +70,9 @@
 			Bin Value: @Model.playerData.binValue
 			Bin: @Model.playerData.binCurrentCapacity / @Model.playerData.binMaxCapacity
 		</div>
-		<form asp-action="Sell" asp-controller="Game">
+		<form asp-action="Sell" asp-controller="Game" class="mt-3">
 			<input name="id" type="hidden" value="@Model.playerData.ID" />
-			<button type="submit">Sell</button>
+			<button class="btn btn-success" type="submit">Sell</button>
 		</form>
 
 		<div id="updatedContent">
@@ -106,7 +106,7 @@
 
 	<div class="col-2">
 
-		<partial name="Leaderboard.cshtml" for="@Model.AllPlayerData"/>
+		<partial name="Leaderboard.cshtml" for="@Model.AllPlayerData" />
 
 		<h2 class="text-primary">
 			<form asp-controller="Game" asp-action="ChangeName">
@@ -131,11 +131,6 @@
 		<input name="id" type="hidden" value="@Model.playerData.ID" />
 		<button type="submit">Sell</button>
 	</form>
-</div> *@
-
-@* <div class="progress">
-	<div name="percent" value="4555" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-	this is text @ViewBag.Percent
 </div> *@
 
 
