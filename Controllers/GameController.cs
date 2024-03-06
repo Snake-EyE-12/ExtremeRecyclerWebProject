@@ -59,7 +59,7 @@ namespace ExtremeRecycler.Controllers
             {
                 itemList = ItemDal.GetAll().Where(x => x.rarity == 3);
             }
-            else if(randomValue > 850)
+            else if(randomValue > 900)
             {
                 itemList = ItemDal.GetAll().Where(x => x.rarity == 2);
             }
@@ -98,9 +98,19 @@ namespace ExtremeRecycler.Controllers
 		}
 		public IActionResult Trash(int itemID)
         {
+			Item item = ItemDal.Get(itemID);
+
+            if(item.recyclable)
+            {
+			    ViewBag.textColor = "danger";
+            }
+            else
+            {
+                ViewBag.textColor = "success";
+            }
+
 			ViewBag.headerSize = 1;
-			ViewBag.textColor = "danger";
-			ViewBag.feedbackText = "Item Trashed!!";
+			ViewBag.feedbackText = item.name + " Trashed!!";
 
 			return View("GamePage", GetNewPageData());
             // CURRENTLY DOES NOTHING BUT A PAGE REFRESH ???
@@ -108,17 +118,33 @@ namespace ExtremeRecycler.Controllers
 
         public IActionResult Recycle(int itemID)
         {
-			ViewBag.headerSize = 1;
-			ViewBag.textColor = "success";
-			ViewBag.feedbackText = "RECYCLE!!!!";
-
 			PlayerData pd = GetMatchingPlayerData();
             Item item = ItemDal.Get(itemID);
+
+
+
             if(pd.binMaxCapacity - pd.binCurrentCapacity > item.capacity)
             {
-                item.OnRecycle(pd);
-                if(!item.recyclable) pd.Dollars -= item.value * GetUpgradeValue("PenaltyMinimizer", pd); // CAN GO BELOW ZERO
+				item.OnRecycle(pd);
+                if(!item.recyclable)
+                {
+                    pd.Dollars -= item.value * GetUpgradeValue("PenaltyMinimizer", pd); // CAN GO BELOW ZERO
+				    ViewBag.textColor = "danger";
+                }
+                else
+                {
+                    ViewBag.textColor = "success";
+                }
+                    
+				ViewBag.headerSize = 1;
+				ViewBag.feedbackText = item.name + " Recycled!!";
             }
+            else
+            {
+				ViewBag.headerSize = 1;
+				ViewBag.textColor = "danger";
+				ViewBag.feedbackText = "Bin was too full for " + item.name + "!";
+			}
             
 			PlayerDal.Update(pd);
             return View("GamePage", GetNewPageData());
@@ -138,12 +164,18 @@ namespace ExtremeRecycler.Controllers
                     {
 						ViewBag.headerSize = 2;
 						ViewBag.textColor = "primary";
-                        ViewBag.feedbackText = "Upgrade Bought";
+                        ViewBag.feedbackText = upgrade.UpgradeName + " Upgrade Bought!";
 
 						PlayerDal.Update(pd);
                         UpdatePlayerUpgrade(pd, upgrade);
                         break;
                     }
+                    else
+                    {
+						ViewBag.headerSize = 2;
+						ViewBag.textColor = "danger";
+						ViewBag.feedbackText = upgrade.UpgradeName + " is too expensive!";
+					}
 				}
 			}
 			return View("GamePage", GetNewPageData());
@@ -208,6 +240,12 @@ namespace ExtremeRecycler.Controllers
                 playerData.EmptyBin();
                 PlayerDal.Update(playerData);
             }
+            else
+            {
+				ViewBag.headerSize = 1;
+				ViewBag.textColor = "danger";
+				ViewBag.feedbackText = "Truck not back yet!";
+			}
             return View("GamePage", GetNewPageData());
 		}
 

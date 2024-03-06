@@ -14,7 +14,7 @@
 		<h2 class="text-info">Upgrades</h2>
 		@foreach (var upgrade in Model.PlayerUpgrades)
 		{
-			<div class="my-2">
+			<div class="my-2 w-100">
 				<partial name="partialUpgradePage.cshtml" for="@upgrade" />
 			</div>
 		}
@@ -108,12 +108,10 @@
 
 		<partial name="Leaderboard.cshtml" for="@Model.AllPlayerData" />
 
-		<h2 class="text-primary">
-			<form asp-controller="Game" asp-action="ChangeName">
-				<input name="id" type="text" value="@Model.playerData.DisplayName" /> @* placeholder="@Model.playerData.DisplayName"*@
-				<button type="submit">Save</button>
-			</form>
-		</h2>
+		<form asp-controller="Game" asp-action="ChangeName">
+			<input name="id" type="text" value="@Model.playerData.DisplayName"/> @* placeholder="@Model.playerData.DisplayName"*@
+			<button type="submit" class="btn btn-info">Save</button>
+		</form>
 
 
 	</div>

@@ -20,3 +20,8 @@ body {
 img.submit:hover {
     cursor: pointer;
 }
+
+.upgrade-border{
+    border-style: inset;
+    border-width: 2px;
+}

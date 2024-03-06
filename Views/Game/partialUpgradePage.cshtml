@@ -1,9 +1,11 @@
 ﻿@using ExtremeRecycler.Models.Upgrades;
 @model ValueUpgrade
 
-<div class="list-group-item-primary text-center">
+<div class="list-group-item-primary text-center upgrade-border" data-toggle="tooltip" data-placement="top" title="@Model.Description">
 	<div>
-		@Model.UpgradeName
+		<b>
+			@Model.DisplayName
+		</b>
 	</div>
 	<div>
 		Current Efficiency: @Model.Execute()
