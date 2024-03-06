@@ -190,6 +190,7 @@ namespace ExtremeRecycler.Controllers
 			ViewBag.headerSize = 1;
 			ViewBag.textColor = "success";
 			ViewBag.feedbackText = "Bin Sold!";
+            ViewBag.test = "<img src=\"/Images/BirthdayCake.png\">";
 
 			PlayerData playerData = PlayerDal.Get(id);
             if (playerData.sellAvailableTime.CompareTo(DateTime.Now) < 0)

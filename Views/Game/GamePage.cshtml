@@ -105,6 +105,7 @@
 
 
 	<div class="col-2">
+		@Html.Raw(@ViewBag.test)
 
 		<div class="row text-center">
 			<h@(ViewBag.headerSize) class=@("text-" + ViewBag.textColor)>@ViewBag.feedbackText</h@(ViewBag.headerSize)>
