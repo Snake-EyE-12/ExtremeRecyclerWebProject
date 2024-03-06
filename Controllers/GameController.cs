@@ -98,13 +98,21 @@ namespace ExtremeRecycler.Controllers
 		}
 		public IActionResult Trash(int itemID)
         {
-			return RedirectToAction("GamePage", "Game", GetNewPageData());
+			ViewBag.headerSize = 1;
+			ViewBag.textColor = "danger";
+			ViewBag.feedbackText = "Item Trashed!!";
+
+			return View("GamePage", GetNewPageData());
             // CURRENTLY DOES NOTHING BUT A PAGE REFRESH ???
         }
 
         public IActionResult Recycle(int itemID)
         {
-            PlayerData pd = GetMatchingPlayerData();
+			ViewBag.headerSize = 1;
+			ViewBag.textColor = "success";
+			ViewBag.feedbackText = "RECYCLE!!!!";
+
+			PlayerData pd = GetMatchingPlayerData();
             Item item = ItemDal.Get(itemID);
             if(pd.binMaxCapacity - pd.binCurrentCapacity > item.capacity)
             {
@@ -113,13 +121,14 @@ namespace ExtremeRecycler.Controllers
             }
             
 			PlayerDal.Update(pd);
-            return RedirectToAction("GamePage", "Game", GetNewPageData());
+            return View("GamePage", GetNewPageData());
         }
 
 
         public IActionResult BuyUpgrade(string upgradeName) //SHOULD WORK WITH ALL UPGRADES IF ADDED PROPERLY
         {
-            PlayerData pd = GetMatchingPlayerData();
+
+			PlayerData pd = GetMatchingPlayerData();
 			IEnumerable<ValueUpgrade> upgrades = GetPlayerUpgrades(pd.Username);
 			foreach (ValueUpgrade upgrade in upgrades)
 			{
@@ -127,7 +136,11 @@ namespace ExtremeRecycler.Controllers
 				{
 					if(upgrade.AttemptPurchase(pd))
                     {
-                        PlayerDal.Update(pd);
+						ViewBag.headerSize = 2;
+						ViewBag.textColor = "primary";
+                        ViewBag.feedbackText = "Upgrade Bought";
+
+						PlayerDal.Update(pd);
                         UpdatePlayerUpgrade(pd, upgrade);
                         break;
                     }
@@ -135,7 +148,7 @@ namespace ExtremeRecycler.Controllers
                     
 				}
 			}
-			return RedirectToAction("GamePage", "Game", GetNewPageData());
+			return View("GamePage", GetNewPageData());
 		}
 
         private void UpdatePlayerUpgrade(PlayerData pd, ValueUpgrade upgrade)
@@ -174,7 +187,11 @@ namespace ExtremeRecycler.Controllers
 
 		public IActionResult Sell(int id)
         {
-            PlayerData playerData = PlayerDal.Get(id);
+			ViewBag.headerSize = 1;
+			ViewBag.textColor = "success";
+			ViewBag.feedbackText = "Bin Sold!";
+
+			PlayerData playerData = PlayerDal.Get(id);
             if (playerData.sellAvailableTime.CompareTo(DateTime.Now) < 0)
             {
                 currentSecond = 0;
@@ -185,7 +202,7 @@ namespace ExtremeRecycler.Controllers
                 playerData.EmptyBin();
                 PlayerDal.Update(playerData);
             }
-            return RedirectToAction("GamePage", "Game", GetNewPageData());
+            return View("GamePage", GetNewPageData());
 		}
 
         public IActionResult Leaderboard()
@@ -200,7 +217,11 @@ namespace ExtremeRecycler.Controllers
 		[Authorize]
 		public IActionResult GamePage()
 		{
-            PlayerData pd = GetMatchingPlayerData();
+            ViewBag.headerSize = 2;
+			ViewBag.textColor = "primary";
+			ViewBag.feedbackText = "Welcome to\nEXTREME RECYCLER";
+
+			PlayerData pd = GetMatchingPlayerData();
             if (pd == null)
             {
                 return PartialView("_LoginPartial");
