@@ -146,6 +146,7 @@ namespace ExtremeRecycler.Controllers
             {
                 pd.binMaxCapacity = pd.binBaseMaxCapacity + GetUpgradeValue("BinCapacity", pd);
             }
+            PlayerDal.Update(pd);
 		}
 
         public IActionResult Sell(int id)
