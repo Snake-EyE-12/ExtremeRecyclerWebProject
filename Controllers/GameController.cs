@@ -100,17 +100,20 @@ namespace ExtremeRecycler.Controllers
         {
 			Item item = ItemDal.Get(itemID);
 
-            if(item.recyclable)
+            if(item != null)
             {
-			    ViewBag.textColor = "danger";
-            }
-            else
-            {
-                ViewBag.textColor = "success";
-            }
+                if(item.recyclable)
+                {
+			        ViewBag.textColor = "danger";
+                }
+                else
+                {
+                    ViewBag.textColor = "success";
+                }
 
-			ViewBag.headerSize = 1;
-			ViewBag.feedbackText = item.name + " Trashed!!";
+			    ViewBag.headerSize = 1;
+			    ViewBag.feedbackText = item.name + " Trashed!!";
+            }
 
 			return View("GamePage", GetNewPageData());
             // CURRENTLY DOES NOTHING BUT A PAGE REFRESH ???

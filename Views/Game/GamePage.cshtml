@@ -39,9 +39,8 @@
 					$.post("@Url.Action("Trash", "Game")", { itemID: this.getAttribute("value") }, function (data) {
 						//get some data back from the method
 						console.log(data);
-						//refresh the entire page
-						//$("body").html(data);
-						location.reload();
+
+						$("body").html(data);
 					});
 				}
 			});
