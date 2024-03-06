@@ -20,8 +20,6 @@ namespace ExtremeRecycler.Controllers
 
         static DateTime startTime;
 
-        //static float currentMinute;// tell NO ONE
-		//static float currentSecond;// tell NO ONE
 		public GameController(DataAccessLayer<Item> indalItem, DataAccessLayer<ValueUpgrade> indalUpgrade, DataAccessLayer<PlayerData> indalPlayer, DataAccessLayer<PlayerUpgrade> indalPlayerUpgrade)
 		{
 			ItemDal = indalItem;
@@ -207,7 +205,7 @@ namespace ExtremeRecycler.Controllers
 
 				playerData.sellAvailableTime = DateTime.Now;
                 playerData.sellAvailableTime = playerData.sellAvailableTime.AddSeconds(GetUpgradeValue("TruckDelay", playerData));
-                playerData.Dollars += playerData.binValue; //* GetUpgradeValue("SellMultiplier", playerData);
+                playerData.Dollars += playerData.binValue * GetUpgradeValue("SellMultiplier", playerData);
                 playerData.EmptyBin();
                 PlayerDal.Update(playerData);
             }
