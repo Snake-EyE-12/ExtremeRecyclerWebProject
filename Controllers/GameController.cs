@@ -194,6 +194,7 @@ namespace ExtremeRecycler.Controllers
             PlayerDal.Update(pd);
 		}
 
+        [Authorize]
         public IActionResult ProgressBar()
         {
             //ViewBag.Date = GetMatchingPlayerData().sellAvailableTime.Second.ToString(); //debug when the bar should be filled at the seconds place
