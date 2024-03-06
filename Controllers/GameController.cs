@@ -18,7 +18,8 @@ namespace ExtremeRecycler.Controllers
 		DataAccessLayer<PlayerData> PlayerDal;
         DataAccessLayer<PlayerUpgrade> PlayerUpgradeDal;
 
-        static float currentSecond; //don't tell NO ONE
+        static float currentMinute;// tell NO ONE
+		static float currentSecond;// tell NO ONE
 		public GameController(DataAccessLayer<Item> indalItem, DataAccessLayer<ValueUpgrade> indalUpgrade, DataAccessLayer<PlayerData> indalPlayer, DataAccessLayer<PlayerUpgrade> indalPlayerUpgrade)
 		{
 			ItemDal = indalItem;
@@ -153,21 +154,21 @@ namespace ExtremeRecycler.Controllers
 
         public IActionResult ProgressBar()
         {
-            
+            //ViewBag.Date = GetMatchingPlayerData().sellAvailableTime.Second.ToString(); //debug when the bar should be filled at the seconds place
+
+            //PlayerData playerData = PlayerDal.Get(id);
             if (GetMatchingPlayerData().sellAvailableTime.CompareTo(DateTime.Now) > 0)
             {
 				float updatedData = currentSecond / GetUpgradeValue("TruckDelay", GetMatchingPlayerData());
 
-				currentSecond += 0.1f; //runs ever .1 seconds
+				currentSecond += 0.11f; //runs ever .1 seconds but a little extra to accomidate for lag and page refresh
 				updatedData *= 100;
 
-				Debug.WriteLine("updated to:" + updatedData);
-
-				// Assuming you're returning a partial view
 				return PartialView("partialBar", updatedData);
 			}
-
 			return PartialView("partialBar", 0f);
+			
+
 		}
 
 
